@@ -246,7 +246,6 @@ public class Function {
 						.valueOf(userlist.get(i).dateFrom
 								+ " 00:00:00.000000000");
 
-				userlist.get(i).dateFrom = foundDate1;
 				if (!foundDate2.isEmpty())
 					userlist.get(i).dateTo = foundDate2;
 
