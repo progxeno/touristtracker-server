@@ -28,7 +28,6 @@ public class UserRating {
 	}
 
 	public UserRating() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public static void create(UserRating rating) {

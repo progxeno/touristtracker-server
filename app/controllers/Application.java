@@ -1,12 +1,18 @@
 package controllers;
 
 import java.util.List;
-import java.util.Map;
 
-import models.*;
+import models.Function;
+import models.GPSLog;
+import models.GeoCenter;
+import models.LoginUser;
+import models.User;
+import models.UserRating;
 import play.data.Form;
 import play.libs.Json;
-import play.mvc.*;
+import play.mvc.Controller;
+import play.mvc.Result;
+import play.mvc.Security;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -19,15 +25,7 @@ public class Application extends Controller {
 	public static Result index() {
 		return ok(views.html.user.render(User.displayAll(), stringForm,
 				GPSLog.all(), GeoCenter.getCenter(GPSLog.all())));
-		// return redirect(routes.Application.users());
 	}
-
-//	public static Result users() {
-//		// List<GeoCenter> test = null;
-//
-//		return ok(views.html.user.render(User.displayAll(), stringForm,
-//				GPSLog.all(), GeoCenter.getCenter(GPSLog.all())));
-//	}
 
 	public static Result newUser() {
 
@@ -35,25 +33,27 @@ public class Application extends Controller {
 				"78467", "DE", true, true);
 		User.create(user);
 
-//		User user2 = new User("456ef", "bjtriben@htwg-konstanz.de", 1988,
-//				"78462", "PL", true, false);
-//		User.create(user2);
-//
-//		User user3 = new User("789hi", "hakleiner@htwg-konstanz.de", 1993,
-//				"78467", "A", true, true);
-//		User.create(user3);
-//
-//		User user4 = new User("123kl", "Frau.Schweiz@gmail.com", 1980, "64285",
-//				"CH", false, false);
-//		User.create(user4);
-//
-//		User user5 = new User("123no", "Frau.Schweiz@gmail.com", 1980, "64285",
-//				"CH", false, false);
-//		User.create(user5);
-//
-//		User user6 = new User("456no", "Engländer@gmail.com", 1980, "64285",
-//				"EN", true, true);
-//		User.create(user6);
+		// User user2 = new User("456ef", "bjtriben@htwg-konstanz.de", 1988,
+		// "78462", "PL", true, false);
+		// User.create(user2);
+		//
+		// User user3 = new User("789hi", "hakleiner@htwg-konstanz.de", 1993,
+		// "78467", "A", true, true);
+		// User.create(user3);
+		//
+		// User user4 = new User("123kl", "Frau.Schweiz@gmail.com", 1980,
+		// "64285",
+		// "CH", false, false);
+		// User.create(user4);
+		//
+		// User user5 = new User("123no", "Frau.Schweiz@gmail.com", 1980,
+		// "64285",
+		// "CH", false, false);
+		// User.create(user5);
+		//
+		// User user6 = new User("456no", "Engländer@gmail.com", 1980, "64285",
+		// "EN", true, true);
+		// User.create(user6);
 		return redirect(routes.Application.index());
 	}
 
@@ -146,6 +146,13 @@ public class Application extends Controller {
 		return redirect(routes.Application.index());
 	}
 
+	/**
+	 * Checks the HTTP request and convert it into a Json Node. The Json Node is
+	 * convert into an Tourist (User) Object. If this Tourist Object matches my
+	 * defined Object, it is store in the Database.
+	 * 
+	 * @return "ok" if the Tourist is store in the database
+	 */
 	public static Result jsonUser() {
 
 		JsonNode jUser = request().body().asJson();
@@ -164,6 +171,13 @@ public class Application extends Controller {
 
 	}
 
+	/**
+	 * Checks the HTTP request and convert it into an Array of Json Nodes. The
+	 * Json Nodes are convert into my GPSLog Object. If this GPSLog Object
+	 * matches my defined Object, it is store in the Database.
+	 * 
+	 * @return "ok" if the Tourist is store in the database
+	 */
 	public static Result jsonTracking() {
 
 		JsonNode jTracking = request().body().asJson()
@@ -183,6 +197,13 @@ public class Application extends Controller {
 
 	}
 
+	/**
+	 * Checks the HTTP request and convert it into an Array of Json Nodes. The
+	 * Json Nodes are convert into my UserRating Object. If this UserRating
+	 * Object matches my defined Object, it is store in the Database.
+	 * 
+	 * @return "ok" if the Tourist is store in the database
+	 */
 	public static Result jsonRating() {
 		JsonNode jRating = request().body().asJson()
 				.withArray("ratingcollection");
@@ -202,46 +223,94 @@ public class Application extends Controller {
 
 	}
 
+	/**
+	 * Calls Delete Function
+	 * 
+	 * @param id
+	 * @return redirect to the main page
+	 */
 	public static Result delete(String id) {
 		Function.delete(id);
 		return redirect(routes.Application.index());
 	}
 
+	/**
+	 * Calls Delete rating Function
+	 * 
+	 * @param id
+	 * @return redirect to the main page
+	 */
 	public static Result deleteRating(String id) {
 		Function.deleteRating(id);
 		List<GPSLog> test = null;
-		return ok(views.html.user.render(Function.withTrack(), stringForm, test, GeoCenter.getCenter(GPSLog.all())));
+		return ok(views.html.user.render(Function.withTrack(), stringForm,
+				test, GeoCenter.getCenter(GPSLog.all())));
 	}
 
+	/**
+	 * Calls Function to display all Ratings given by the Tourist
+	 * 
+	 * @param id
+	 * @return Opens Window with the Ratings
+	 */
 	public static Result displayRating(String userid) {
 		return ok(views.html.Rating.render(Function.UserRating(userid)));
 	}
 
+	/**
+	 * Calls Function to display all Distances of the Tourist
+	 * 
+	 * @param id
+	 * @return Opens Window with the Distances
+	 */
 	public static Result displayDistance(String userid) {
 		return ok(views.html.Distance.render(Function.UserDistance(userid)));
 	}
 
+	/**
+	 * Calls Function to Filter Database of the Tourists and their corresponding
+	 * GPS-Logs.
+	 * 
+	 * @param id
+	 * @return Opens main page with the List of Tourist that match the selected
+	 *         criteria
+	 */
 	public static Result filter() {
-	   	
+
 		Form<String> filterOptions = stringForm.bindFromRequest();
 		List<User> userlist = Function.multiFilter(filterOptions);
-		List<GPSLog> gpslog= Function.gpsfilter(userlist, filterOptions);
-		return ok(views.html.user.render(userlist, stringForm, gpslog, GeoCenter.getCenter(gpslog)));
+		List<GPSLog> gpslog = Function.gpsfilter(userlist, filterOptions);
+		return ok(views.html.user.render(userlist, stringForm, gpslog,
+				GeoCenter.getCenter(gpslog)));
 
 	}
 
+	/**
+	 * Opens Login Screen
+	 * 
+	 * @return Displays the login window
+	 */
 	public static Result login() {
 		return ok(views.html.login.render(Form.form(LoginUser.class)));
 	}
-	
+
+	/**
+	 * Clears the Logindata of the current session and opens the Login-Screen
+	 * again
+	 * 
+	 * @return redirect to the Login-Screen
+	 */
 	public static Result logout() {
-	    session().clear();
-	    flash("success", "You've been logged out");
-	    return redirect(
-	        routes.Application.login()
-	    );
+		session().clear();
+		flash("success", "You've been logged out");
+		return redirect(routes.Application.login());
 	}
 
+	/**
+	 * Checks if the entered Login-data match a Login-data in the Database
+	 * 
+	 * @return redirects to the main page
+	 */
 	public static Result authenticate() {
 		Form<LoginUser> loginForm = Form.form(LoginUser.class)
 				.bindFromRequest();
@@ -257,22 +326,27 @@ public class Application extends Controller {
 				return badRequest(views.html.login.render(loginForm));
 		}
 	}
-	
+
+	/**
+	 * Adds a new User with the entered Information to the Database
+	 * 
+	 * @return redirect to the main page
+	 */
 	public static Result register() {
 		Form<LoginUser> loginForm = Form.form(LoginUser.class)
 				.bindFromRequest();
 		if (loginForm.hasErrors()) {
 			return badRequest(views.html.login.render(loginForm));
 		} else {
-				LoginUser.create(loginForm);
-				return redirect(routes.Application.index());
+			LoginUser.create(loginForm);
+			return redirect(routes.Application.index());
 		}
 	}
 
-	public static Result authenticateAdmin() {
+	public static Result authenticateToRegister() {
 		Form<LoginUser> loginForm = Form.form(LoginUser.class)
 				.bindFromRequest();
 		return ok(views.html.addUser.render(loginForm));
 	}
-	
+
 }

@@ -14,7 +14,6 @@ public class GeoCenter {
 		this.userid = userid;
 		this.latitudeCenter = lat;
 		this.longitudeCenter = lon;
-		// TODO Auto-generated constructor stub
 	}
 
 	public GeoCenter() {
@@ -23,7 +22,6 @@ public class GeoCenter {
 
 	public static List<GeoCenter> getCenter(List<GPSLog> gpslogs) {
 
-		
 		List<GeoCenter> geolist = new ArrayList<GeoCenter>();
 
 		for (int i = 0; i < gpslogs.size(); i++) {
@@ -50,7 +48,6 @@ public class GeoCenter {
 			}
 
 			geolist.add(geo);
-			
 
 		}
 

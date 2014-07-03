@@ -19,7 +19,6 @@ public class LoginUser {
 	public String email;
 	public String password;
 
-
 	public static JacksonDBCollection<LoginUser, String> coll = MongoDB
 			.getCollection("Users", LoginUser.class, String.class);
 
@@ -47,10 +46,10 @@ public class LoginUser {
 				}
 			}
 
-		if (bNewUser) 
+		if (bNewUser)
 			LoginUser.coll.save(user);
 	}
-	
+
 	public static boolean checkUser(Form<LoginUser> loginForm) {
 
 		LoginUser user = loginForm.get();
@@ -68,6 +67,5 @@ public class LoginUser {
 		User.coll.removeById(user.id);
 		User.create(user);
 	}
-
 
 }

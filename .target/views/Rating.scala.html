@@ -4,38 +4,38 @@
 @main("Rating list") {
 <div class="modal-body">
 <div class="panel panel-default">
-   <!-- Default panel contents -->
-   <div class="panel-heading"><b>Ratings</b></div>
-   <div style="overflow:auto;">
-      <!-- Table -->
-      <table class="table table-striped table-condensed">
-         <tr>
-            <th>Titel</th>
-            <th>Comment</th>
-            <th width="105">Rating</th>
-            <th>Delete</th>
-         </tr>
-         @for(rating <- ratings) {
-         <tr>
-            <td><b>@rating.ratingtitle</b></td>
-            <td>@rating.ratingtext</td>
-            <td>
-               @for(i <- 1 to rating.ratingstars) {
-               <span class="glyphicon glyphicon-star"></span>
-               }
-               @for(i <- rating.ratingstars to 4) {
-               <span class="glyphicon glyphicon-star-empty"></span>
-               }
-            </td>
-            <td>
-               @form(routes.Application.deleteRating(rating.id)) {
-               <button class="btn btn-default" onclick="return confirm('Are you sure that you want to delete all the collected data of the User?')">
-               <i class="glyphicon-delete-point"></i>        }
-               </button>
-            </td>
-         </tr>
-         }
-      </table>
-   </div>
+  <!-- Default panel contents -->
+  <div class="panel-heading"><b>Ratings</b></div>
+  <div style="overflow:auto;">
+    <!-- Table -->
+    <table class="table table-striped table-condensed">
+      <tr>
+        <th>Titel</th>
+        <th>Comment</th>
+        <th width="105">Rating</th>
+        <th>Delete</th>
+      </tr>
+      @for(rating <- ratings) {
+      <tr>
+        <td><b>@rating.ratingtitle</b></td>
+        <td>@rating.ratingtext</td>
+        <td>
+          @for(i <- 1 to rating.ratingstars) {
+          <span class="glyphicon glyphicon-star"></span>
+          }
+          @for(i <- rating.ratingstars to 4) {
+          <span class="glyphicon glyphicon-star-empty"></span>
+          }
+        </td>
+        <td>
+          @form(routes.Application.deleteRating(rating.id)) {
+          <button class="btn btn-default" onclick="return confirm('Are you sure that you want to delete all the collected data of the User?')">
+          <i class="glyphicon-delete-point"></i>        }
+          </button>
+        </td>
+      </tr>
+      }
+    </table>
+  </div>
 </div>
 }

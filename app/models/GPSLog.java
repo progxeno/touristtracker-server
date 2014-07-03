@@ -2,12 +2,12 @@ package models;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.JacksonDBCollection;
 import net.vz.mongodb.jackson.ObjectId;
 import play.modules.mongodb.jackson.MongoDB;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class GPSLog {
 
@@ -48,10 +48,10 @@ public class GPSLog {
 		GPSLog.coll.save(tracking);
 	}
 
-	public static List<GPSLog> all(){
+	public static List<GPSLog> all() {
 		return GPSLog.coll.find().toArray();
 	}
-	
+
 	public static void myGPSUpdate(GPSLog log) {
 
 		GPSLog.coll.removeById(log.id);

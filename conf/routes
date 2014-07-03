@@ -3,41 +3,34 @@
 # ~~~~
 
 # Home page
-GET     /	                 controllers.Application.login()
+GET     /	                 			controllers.Application.login()
 GET     /user                           controllers.Application.index()
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file               	controllers.Assets.at(path="/public", file)
 
 
 # Map static resources from the /public folder to the /assets URL path
 
-#GET    /user                  controllers.Application.users()
-#GET    /	                 controllers.Application.login()
-POST   /login                 controllers.Application.authenticate()
-POST   /register              		controllers.Application.register()
-GET   /registerNewUser/asAdmin     controllers.Application.authenticateAdmin()
-GET     /logout                     controllers.Application.logout()
+POST    /login                 			controllers.Application.authenticate()
+POST    /register              			controllers.Application.register()
+GET     /registerNewUser     			controllers.Application.authenticateToRegister()
+GET     /logout               			controllers.Application.logout()
 
 
-GET    /addUser               controllers.Application.newUser()
-GET    /addTracking           controllers.Application.newTracking()
-GET    /addRating             controllers.Application.newRating()
+GET     /addUser           			    controllers.Application.newUser()
+GET     /addTracking       			    controllers.Application.newTracking()
+GET     /addRating         			    controllers.Application.newRating()
 
-GET    /displayRating/:userid/rating	          controllers.Application.displayRating(userid: String)
+GET     /displayRating/:userid/rating	controllers.Application.displayRating(userid: String)
 
-GET    /Distance/:id/singledistance	          controllers.Application.displayDistance(id: String)
-
-#GET    /addUser/:hashID/:email/:birth/:plz/:gender          controllers.Application.newUser2(hashID: String, email: String, birth: Integer, plz: Integer, gender: String)
-#Example: localhost:9000/addUser/mario.miosga@gmail.com/1991/64285/m
-
-POST    /user/:id/delete       controllers.Application.delete(id: String)
-POST    /addRating/:id/delete       controllers.Application.deleteRating(id: String)
+GET     /Distance/:id/singledistance	controllers.Application.displayDistance(id: String)
 
 
-POST    /addJUser       		controllers.Application.jsonUser()
-POST    /addJUserRating       	controllers.Application.jsonRating()
-POST    /addJGPSlog       		controllers.Application.jsonTracking()
+POST    /user/:id/delete       			controllers.Application.delete(id: String)
+POST    /addRating/:id/delete       	controllers.Application.deleteRating(id: String)
 
-#GET    /user/:gender         controllers.Application.filtergender( gender: Boolean)
-GET    /filter			     controllers.Application.filter()
-#GET    /filterplz		     controllers.Application.filter()
-#GET    /user/:type/:value          controllers.Application.filterselect(type: String, value: Integer)
+
+POST    /addJUser       				controllers.Application.jsonUser()
+POST    /addJUserRating   		    	controllers.Application.jsonRating()
+POST    /addJGPSlog      		 		controllers.Application.jsonTracking()
+
+GET     /filter			     			controllers.Application.filter()
