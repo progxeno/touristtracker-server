@@ -184,8 +184,7 @@ public class Function {
 		String gender = "gender";
 		String returner = "returner";
 		String date1 = "date1";
-		String date2 = "redate2turner";
-		List<User> userlist = null;
+		List<User> userlist = new ArrayList<User>();
 
 		String foundmail = filterOptions.data().get(email);
 		String foundzipcode = filterOptions.data().get(zipcode);
@@ -193,7 +192,6 @@ public class Function {
 		String foundyear2 = filterOptions.data().get(year2);
 		String foundcountry = filterOptions.data().get(country);
 		String foundDate1 = filterOptions.data().get(date1);
-		String foundDate2 = filterOptions.data().get(date2);
 
 		if (!foundmail.isEmpty()) {
 			searchQuery.put(email, foundmail);
@@ -245,19 +243,16 @@ public class Function {
 				Timestamp lDate1 = Timestamp.valueOf(foundDate1
 						+ " 00:00:00.000000000");
 
-				if (!userlist.get(i).dateFrom.equals(lDate1)) {
+				Timestamp lUserDate = Timestamp
+						.valueOf(userlist.get(i).dateFrom
+								+ " 00:00:00.000000000");
+
+				if (!lUserDate.after(lDate1)) {
 					userlist.remove(i);
 					i--;
 				}
 			}
-			if (!foundDate2.isEmpty()) {
-				Timestamp lDate2 = Timestamp.valueOf(foundDate2
-						+ " 00:00:00.000000000");
-				if (!userlist.get(i).dateTo.equals(lDate2)) {
-					userlist.remove(i);
-					i--;
-				}
-			}
+
 		}
 
 		return userlist;
@@ -306,23 +301,35 @@ public class Function {
 
 			if (!foundDate1.isEmpty() && !foundDate2.isEmpty()) {
 
-				Timestamp lDate1 = Timestamp.valueOf(foundDate1
+				Timestamp tDate1 = Timestamp.valueOf(foundDate1
 						+ " 00:00:00.000000000");
-				Timestamp lDate2 = Timestamp.valueOf(foundDate2
+
+				long lDate1 = tDate1.getTime();
+
+				Timestamp tDate2 = Timestamp.valueOf(foundDate2
 						+ " 00:00:00.000000000");
+
+				long lDate2 = tDate2.getTime();
 				filtertLogs = GPSLog.coll.find(searchQuery)
 						.greaterThanEquals("timestamp", lDate1)
 						.lessThanEquals("timestamp", lDate2).toArray();
+
 			} else if (!foundDate1.isEmpty() && foundDate2.isEmpty()) {
 
-				Timestamp lDate1 = Timestamp.valueOf(foundDate1
+				Timestamp tDate1 = Timestamp.valueOf(foundDate1
 						+ " 00:00:00.000000000");
-				searchQuery.put("timestamp", lDate1);
+				long lDate1 = tDate1.getTime();
+
 				filtertLogs = GPSLog.coll.find(searchQuery)
 						.greaterThanEquals("timestamp", lDate1).toArray();
+
 			} else if (foundDate1.isEmpty() && !foundDate2.isEmpty()) {
-				Timestamp lDate2 = Timestamp.valueOf(foundDate2
+
+				Timestamp tDate2 = Timestamp.valueOf(foundDate2
 						+ " 00:00:00.000000000");
+
+				long lDate2 = tDate2.getTime();
+
 				filtertLogs = GPSLog.coll.find(searchQuery)
 						.lessThanEquals("timestamp", lDate2).toArray();
 			} else {
