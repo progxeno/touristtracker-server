@@ -1,10 +1,7 @@
 package models;
 
-<<<<<<< HEAD
 import java.util.List;
 
-=======
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import net.vz.mongodb.jackson.Id;
@@ -30,13 +27,8 @@ public class GPSLog {
 	public static JacksonDBCollection<GPSLog, String> coll = MongoDB
 			.getCollection("GPSLog", GPSLog.class, String.class);
 
-<<<<<<< HEAD
 	public GPSLog(String userid, int vehicle, long timestamp, double latitude,
 			double longitude, double distance) {// Date daDate,
-=======
-	public GPSLog(String userid, int vehicle, long timestamp, double longitude,
-			double latitude, double distance) {// Date daDate,
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 
 		this.userid = userid;
 		this.vehicle = vehicle;
@@ -56,13 +48,10 @@ public class GPSLog {
 		GPSLog.coll.save(tracking);
 	}
 
-<<<<<<< HEAD
 	public static List<GPSLog> all(){
 		return GPSLog.coll.find().toArray();
 	}
 	
-=======
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 	public static void myGPSUpdate(GPSLog log) {
 
 		GPSLog.coll.removeById(log.id);

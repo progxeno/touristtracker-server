@@ -3,18 +3,13 @@
 # ~~~~
 
 # Home page
-<<<<<<< HEAD
 GET     /	                 controllers.Application.login()
 GET     /user                           controllers.Application.index()
-=======
-GET     /                           controllers.Application.index()
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 
 # Map static resources from the /public folder to the /assets URL path
 
-<<<<<<< HEAD
 #GET    /user                  controllers.Application.users()
 #GET    /	                 controllers.Application.login()
 POST   /login                 controllers.Application.authenticate()
@@ -23,9 +18,6 @@ GET   /registerNewUser/asAdmin     controllers.Application.authenticateAdmin()
 GET     /logout                     controllers.Application.logout()
 
 
-=======
-GET    /user                  controllers.Application.users()
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 GET    /addUser               controllers.Application.newUser()
 GET    /addTracking           controllers.Application.newTracking()
 GET    /addRating             controllers.Application.newRating()
@@ -45,11 +37,7 @@ POST    /addJUser       		controllers.Application.jsonUser()
 POST    /addJUserRating       	controllers.Application.jsonRating()
 POST    /addJGPSlog       		controllers.Application.jsonTracking()
 
-<<<<<<< HEAD
 #GET    /user/:gender         controllers.Application.filtergender( gender: Boolean)
-=======
-GET    /user/:gender         controllers.Application.filtergender( gender: Boolean)
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 GET    /filter			     controllers.Application.filter()
 #GET    /filterplz		     controllers.Application.filter()
 #GET    /user/:type/:value          controllers.Application.filterselect(type: String, value: Integer)

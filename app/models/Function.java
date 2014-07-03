@@ -1,13 +1,8 @@
 package models;
 
-<<<<<<< HEAD
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-=======
-import java.text.SimpleDateFormat;
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
-import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -15,10 +10,6 @@ import net.vz.mongodb.jackson.DBCursor;
 import play.data.Form;
 
 import com.mongodb.BasicDBObject;
-<<<<<<< HEAD
-=======
-import com.mongodb.DBObject;
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 
 public class Function {
 
@@ -31,11 +22,7 @@ public class Function {
 		int isizeUser = User.coll.find().limit(1000).size();
 
 		List<User> mixedList = User.coll.find().limit(1000).toArray();
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 		if (mixedList.isEmpty()) {
 			return mixedList;
 		} else {
@@ -43,7 +30,6 @@ public class Function {
 			for (int i = 0; isizeUser > i; i++) {
 				BasicDBObject query = new BasicDBObject("userid",
 						mixedList.get(i).userid);
-<<<<<<< HEAD
 				List<GPSLog> track = GPSLog.coll.find(query).toArray();
 
 				int isizeTracking = track.size();
@@ -56,19 +42,6 @@ public class Function {
 						mixedList.get(i).dateTo = sdf
 								.format(track.get(j).timestamp);
 
-=======
-				 List<GPSLog> track = GPSLog.coll.find(query).toArray();
-
-				int isizeTracking = track.size();
-				for (int j = 0; isizeTracking > j; j++) {
-					
-					if (!track.get(j).progressed) {
-						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // the format of your date
-						sdf.setTimeZone(TimeZone.getTimeZone("GMT+1"));
-						mixedList.get(i).dateTo = sdf.format(track.get(j).timestamp * 1000L);
-						
-						
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 						mixedList.get(i).dTotalDist = mixedList.get(i).dTotalDist
 								+ track.get(j).distance;
 
@@ -90,15 +63,8 @@ public class Function {
 									+ track.get(j).distance;
 							break;
 						}
-<<<<<<< HEAD
 
 						GPSLog.myGPSUpdate(track.get(j));
-=======
-						
-						
-						GPSLog.myGPSUpdate(track
-								.get(j));
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 					}
 
 				}
@@ -114,7 +80,6 @@ public class Function {
 	public static List<UserRating> UserRating(String userId) {
 
 		int isizeRating = UserRating.coll.find().size();
-<<<<<<< HEAD
 
 		BasicDBObject query = new BasicDBObject("ratingtitle", -1);
 
@@ -122,15 +87,6 @@ public class Function {
 
 		List<UserRating> selectedUserRating = cursor.toArray();
 
-=======
-		
-		BasicDBObject query = new BasicDBObject("ratingtitle",-1);
-		
-		DBCursor<UserRating> cursor = UserRating.coll.find().sort(query);
-		
-		List<UserRating> selectedUserRating = cursor.toArray();
-		
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 		List<UserRating> allUserRating = UserRating.coll.find().toArray();
 
 		if (allUserRating.isEmpty()) {
@@ -166,7 +122,6 @@ public class Function {
 		int isizeTracking = GPSLog.coll.find().size();
 		int isizeRating = UserRating.coll.find().size();
 
-<<<<<<< HEAD
 		BasicDBObject searchQuery = new BasicDBObject("userid", user.userid);
 
 		List<GPSLog> track = GPSLog.coll.find(searchQuery).toArray();
@@ -186,23 +141,6 @@ public class Function {
 					}
 				}
 			}
-=======
-		List<GPSLog> track = GPSLog.coll.find().toArray();
-		List<UserRating> rating = UserRating.coll.find().toArray();
-		if (user != null) {
-
-			for (int j = 0; isizeTracking > j; j++) {
-				if (user.userid.equals(track.get(j).userid)) {
-					GPSLog.coll.remove(track.get(j));
-				}
-			}
-			for (int i = 0; isizeRating > i; i++) {
-				if (user.userid.equals(rating.get(i).userid)) {
-					UserRating.coll.remove(rating.get(i));
-				}
-			}
-
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 			User.coll.removeById(id);
 		}
 	}
@@ -213,45 +151,6 @@ public class Function {
 
 	}
 
-<<<<<<< HEAD
-=======
-	// GENDER
-	public static List<User> fResult(boolean value) {
-
-		DBObject query = new BasicDBObject("gender", value);
-		BasicDBObject fields = new BasicDBObject();
-
-		return User.coll.find(query, fields).toArray();
-	}
-
-	// mail
-	public static List<User> fResultmail(String findmail) {
-
-		DBObject query = new BasicDBObject("email", findmail);
-		BasicDBObject fields = new BasicDBObject();
-
-		return User.coll.find(query, fields).toArray();
-	}
-
-	// plz
-	public static List<User> fResultplz(String findplz) {
-
-		DBObject query = new BasicDBObject("plz", findplz);
-		BasicDBObject fields = new BasicDBObject();
-
-		return User.coll.find(query, fields).toArray();
-	}
-
-	// SELECT
-	public static List<User> fResultselect(String type, int value) {
-
-		DBObject query = new BasicDBObject(type, value);
-		BasicDBObject fields = new BasicDBObject();
-
-		return User.coll.find(query, fields).toArray();
-	}
-
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 	public static List<User> multiFilter(Form<String> filterOptions) {
 
 		BasicDBObject searchQuery = new BasicDBObject();
@@ -263,21 +162,15 @@ public class Function {
 		String country = "country";
 		String gender = "gender";
 		String returner = "returner";
-<<<<<<< HEAD
 		List<User> userlist = null;
-=======
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 
 		String foundmail = filterOptions.data().get(email);
 		String foundzipcode = filterOptions.data().get(zipcode);
 		String foundyear1 = filterOptions.data().get(year1);
 		String foundyear2 = filterOptions.data().get(year2);
 		String foundcountry = filterOptions.data().get(country);
-<<<<<<< HEAD
 		String foundDate1 = filterOptions.data().get("date1");
 		String foundDate2 = filterOptions.data().get("date2");
-=======
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 
 		if (!foundmail.isEmpty()) {
 			searchQuery.put(email, foundmail);
@@ -286,32 +179,7 @@ public class Function {
 
 			searchQuery.put(zipcode, foundzipcode);
 		}
-<<<<<<< HEAD
 
-=======
-		
-		if (!foundyear1.isEmpty() && foundyear2.isEmpty()) {
-			int iyear1 = Integer.parseInt(foundyear1);
-			searchQuery.put("year", iyear1);
-		}
-		if (!foundyear1.isEmpty() && !foundyear2.isEmpty()) {
-			int iyear1 = Integer.parseInt(foundyear1);
-			int iyear2 = Integer.parseInt(foundyear2);
-			int temp;
-			
-//			searchQuery.put("year", iyear1);
-			
-			int diff = iyear2 - iyear1;
-			for (int i=1; i<diff; i++) {
-				temp = iyear1 + i;
-//				searchQuery.put("year", temp);
-				searchQuery.append("year", temp);
-
-			}
-		}
-		
-		
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 		if (!foundcountry.isEmpty()) {
 			searchQuery.put(country, foundcountry);
 		}
@@ -329,7 +197,6 @@ public class Function {
 		if (filterOptions.data().containsKey("returner")) {
 			searchQuery.put(returner, true);
 		}
-<<<<<<< HEAD
 		if (!foundyear1.isEmpty() && !foundyear2.isEmpty()) {
 
 			int iyear1 = Integer.parseInt(foundyear1);
@@ -434,12 +301,6 @@ public class Function {
 
 		return filtertLogs;
 	}
-=======
-		List<User> userlist = User.coll.find(searchQuery).toArray();
-		return userlist;
-	}
-
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 
 	public static boolean checkDoubleEntry(User user, List<User> userList) {
 

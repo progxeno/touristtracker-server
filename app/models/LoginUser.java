@@ -1,9 +1,6 @@
 package models;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.JacksonDBCollection;
@@ -11,7 +8,6 @@ import net.vz.mongodb.jackson.ObjectId;
 import play.data.Form;
 import play.modules.mongodb.jackson.MongoDB;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mongodb.BasicDBObject;
 
 public class LoginUser {

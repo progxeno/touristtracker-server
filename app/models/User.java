@@ -43,11 +43,7 @@ public class User {
 	public double dTotalDist;
 
 	public static JacksonDBCollection<User, String> coll = MongoDB
-<<<<<<< HEAD
 			.getCollection("Tourists", User.class, String.class);
-=======
-			.getCollection("Users", User.class, String.class);
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 
 	public User(String userid, String email, int year, String zipcode,
 			String country, boolean gender, boolean returner) {

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 @(users: List[models.User], stringForm: Form[String], GPSLogs: List[models.GPSLog], geolist: List[models.GeoCenter])
-=======
-@(users: List[models.User], stringForm: Form[String])
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 
 @import helper._
 @import models.User
@@ -11,7 +7,6 @@
 @main("User list") {
 
  <div class="well well-lg">
-<<<<<<< HEAD
 <h1>The Tracking App <span class="label label-default">Analyze</span></h1>  
             <a href="@routes.Application.logout()" class="btn btn-warning" style = "float: right">Logout</a>
             
@@ -29,9 +24,6 @@ Add New User
 </div>
 
 
-=======
-<h1>The Tracking App <span class="label label-default">Analyze</span></h1>
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 <h2>The Database</h2>  
 </div>
 <div class="alert alert-success">
@@ -91,11 +83,7 @@ Add New User
     </td>
     <td>
  	<!-- Button trigger modal -->
-<<<<<<< HEAD
 	<button class="btn btn-default" style ="width: 100%" data-toggle="modal" href="/Distance/@user.userid/singledistance"	data-target="#myModal2">
-=======
-	<button class="btn btn-default" style ="width: 100%" data-toggle="modal" href="/Distance/@user.userid/singledistance"	" data-target="#myModal2">
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
 	@user.dTotalDist</button>
 
 <!-- Modal -->
@@ -109,7 +97,6 @@ Add New User
 </td>
     <td>@user.dateFrom</td>
     <td>@user.dateTo</td>
-<<<<<<< HEAD
     <td>
         @if(user.returner == true){
     <span class="glyphicon glyphicon-ok-circle"></span>
@@ -118,9 +105,6 @@ Add New User
     <span class="glyphicon glyphicon-remove-circle"></span>
     }
  	</td>
-=======
-    <td>@user.returner</td>
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
     <td>
       
         <!-- Button trigger modal -->
@@ -167,17 +151,10 @@ Add New User
       </div> 
       <div style = "margin:0 auto">
       	<div  style = " float:left">     
-<<<<<<< HEAD
 	      @inputDate(stringForm("date1"),'_label -> "Date From")
      	</div>   
       	<div style = "float:right; width:70%">  
     	@inputDate(stringForm("date2"),'_label -> "Date To")
-=======
-	      @inputText(stringForm("date1"),'_label -> "Date From")
-     	</div>   
-      	<div style = "float:right; width:70%">  
-    	@inputText(stringForm("date2"),'_label -> "Date To")
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
  	  	</div>     
       </div> 
       @inputText(stringForm("country"),'_label -> "Country (Shortcut)")
@@ -195,7 +172,6 @@ Add New User
  	  	</div> 	  	      
  	  </div>
  	  
-<<<<<<< HEAD
  	  <dt><label>Select Vehicle</label></dt>
       <div style = "margin:0 auto">
       	<div  style = " float:left; width:25%">
@@ -217,11 +193,6 @@ Add New User
       }
 
 
-=======
-      <input type="submit" value="Filter" style = "float:left; width:40%">
-      }
-
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
       
   </ul>
   </div>
@@ -232,11 +203,7 @@ Add New User
 
 
 
-<<<<<<< HEAD
  <div class="panel panel-default" style = "width:49%; float:right; height: 443px;">
-=======
- <div class="panel panel-default" style = "width:50%; float:right; height: 443px;">
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
    <head> 
     <meta charset="utf-8"/> 
     
@@ -248,7 +215,6 @@ Add New User
     </div>
     
     <script>
-<<<<<<< HEAD
       console.log("userFor");
         function initialize() {
         console.log("function");
@@ -279,64 +245,6 @@ Add New User
 		  
             initialize();
         
-=======
-        function initialize(coords) {
-            var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
-            var mapOptions = {
-                zoom: 9,
-                center: latlng,
-                mapTypeId: google.maps.MapTypeId.TERRAIN
-            };
-            var map = new google.maps.Map(document.getElementById("pos"), mapOptions);
-            
-            var marker = new google.maps.Marker({
-                position: latlng, 
-                map: map, 
-                title: "Hier bist du :)"
-            }); 		       
-			// TEST1  
-		  var coordSlvl_1 = [
-		  //  TODO: Einfügen von request 
-		  // TODO: Ohne Filter: mittlerer Aufenhaltsort für jeden Benutzer (Bewegungsmuster)
-		new google.maps.LatLng(47.65825, 9.17262),
-		new google.maps.LatLng(47.658482,9.170698),
-		new google.maps.LatLng(47.658814,9.170462),
-		new google.maps.LatLng(47.661734,9.172329),
-		new google.maps.LatLng(47.665072,9.173681)
-		
-		  ];
-		  // BLAU
-	    var fahrrad = new google.maps.Polyline({
-		    path: coordSlvl_1, 
-		    geodesic: true,
-		    // BLUE    
-		    strokeColor: '#3333FF',
-		    strokeOpacity: 1.0,
-		    strokeWeight: 2
-	  	});
-	  	
-	  		// GRÜN - Zu Fuß
-	  	  var zufuß = new google.maps.Polyline({
-	  	  	// TODO: andere Punkte
-		    path: coordSlvl_1,
-		    geodesic: true,
-		    // GREEN
-		    strokeColor: '#0C3707',
-		    strokeOpacity: 1.0,
-		    strokeWeight: 2
-		  });
-  
-  		  poly1 = new google.maps.Polyline(fahrrad);
-        //  		    var map = new google.maps.Map(document.getElementById('pos'), mapOptions);
-  		  poly1.setMap(map);
-        }
-  
-        navigator.geolocation.getCurrentPosition(function(position){ 
-            initialize(position.coords);
-        }, function(){
-            document.getElementById('pos').innerHTML = 'Deine Position konnte leider nicht ermittelt werden';
-        });
->>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
         
                 
 
