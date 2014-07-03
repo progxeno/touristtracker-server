@@ -1,0 +1,35 @@
+@(form: Form[models.LoginUser])
+
+@main("Login") {
+
+ <div class="well well-lg">
+<h1>The Tracking App <span class="label label-default">Analyze</span></h1>
+<h2>The Database</h2>  
+</div>
+    
+       <div style = "margin:0 auto">
+     <div class="panel panel-default" style = "width:50%; margin:0 auto">
+       <div class="panel-heading">Sign in</div>
+       
+    @helper.form(routes.Application.authenticate()) {
+	@if(form.hasGlobalErrors) {
+  		  <p class="error">
+  	      @form.globalError.message
+ 		   </p>
+	}
+   <p>
+       <input type="email" name="email" placeholder="Email" value="@form("email").value">
+   </p>
+   <p>
+       <input type="password" name="password" placeholder="Password">
+   </p>
+   <p>
+       <button type="submit" class="btn btn-success">Login</button>
+   </p>
+}
+</div>
+</div>
+
+
+
+}

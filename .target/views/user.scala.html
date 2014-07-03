@@ -1,0 +1,350 @@
+<<<<<<< HEAD
+@(users: List[models.User], stringForm: Form[String], GPSLogs: List[models.GPSLog], geolist: List[models.GeoCenter])
+=======
+@(users: List[models.User], stringForm: Form[String])
+>>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
+
+@import helper._
+@import models.User
+@import models.GPSLog
+
+@main("User list") {
+
+ <div class="well well-lg">
+<<<<<<< HEAD
+<h1>The Tracking App <span class="label label-default">Analyze</span></h1>  
+            <a href="@routes.Application.logout()" class="btn btn-warning" style = "float: right">Logout</a>
+            
+                    <!-- Button trigger modal -->
+<button class="btn btn-default" style = "float: right" data-toggle="modal" href="/registerNewUser/asAdmin"	" data-target="#myModal0" >
+Add New User
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal0" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="width:60%">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+
+
+=======
+<h1>The Tracking App <span class="label label-default">Analyze</span></h1>
+>>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
+<h2>The Database</h2>  
+</div>
+<div class="alert alert-success">
+<ul class="list-group" style="width:20%;">
+  <li class="list-group-item">
+    <span class="badge alert-info" style="font-size: 12pt;">@users.size()</span>
+   	 <b>Tracked Tourists</b>
+  </li>
+</ul>
+</div>
+    
+    
+   <ul>
+   <div style = "margin:0 auto">
+   	<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#home" role="tab" data-toggle="tab">User List</a></li>
+  <li><a href="#filter" role="tab" data-toggle="tab">Filter Options</a></li>
+</ul>
+   <div class="tab-content">
+	<div class="tab-pane active" id="home">
+  <div class="panel panel-default" style = "width:49%; float:left">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Registred Users</div>
+
+<div style=" height: 400px; width:100%; overflow:auto;">
+  <!-- Table -->
+  
+  <table class="table table-striped table-condensed">
+     <tr>
+    <th>Year of Birth</th>
+    <th>Country<br>Zipcode</th>
+    <th>Total<br>Dist</th>
+    <th>From</th>
+    <th>To</th>
+    <th>Returner</th>
+    <th>Ratings</th>
+    <th>Löschen</th>
+  </tr>
+  @for(user <- users) {
+  <tr>
+    <td>
+    <button type="button" class="btn btn-default" style ="width: 90%" data-toggle="tooltip"
+    data-placement="left" title="@user.email">
+    @if(user.gender == true){
+    <i class="glyphicon-male"></i>
+    }
+    @if(user.gender == false){
+    <i class="glyphicon-female"></i>
+    }
+    &nbsp;@user.year
+    </button>
+    </td>
+    <td>
+    <button type="button" class="btn btn-default" style ="width: 90%" data-toggle="tooltip"
+    data-placement="left">@user.country&nbsp;@user.zipcode</button>
+    </td>
+    <td>
+ 	<!-- Button trigger modal -->
+<<<<<<< HEAD
+	<button class="btn btn-default" style ="width: 100%" data-toggle="modal" href="/Distance/@user.userid/singledistance"	data-target="#myModal2">
+=======
+	<button class="btn btn-default" style ="width: 100%" data-toggle="modal" href="/Distance/@user.userid/singledistance"	" data-target="#myModal2">
+>>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
+	@user.dTotalDist</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" style="width:90%">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+
+</td>
+    <td>@user.dateFrom</td>
+    <td>@user.dateTo</td>
+<<<<<<< HEAD
+    <td>
+        @if(user.returner == true){
+    <span class="glyphicon glyphicon-ok-circle"></span>
+    }
+    @if(user.returner == false){
+    <span class="glyphicon glyphicon-remove-circle"></span>
+    }
+ 	</td>
+=======
+    <td>@user.returner</td>
+>>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
+    <td>
+      
+        <!-- Button trigger modal -->
+<button class="btn btn-default" data-toggle="modal" href="/displayRating/@user.userid/rating"	" data-target="#myModal1">
+<span class="glyphicon glyphicon-pencil"></span>
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="width:90%">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+     </td>
+    <td>
+        @form(routes.Application.delete(user.id)) {
+    <button class="btn btn-default" onclick="return confirm('Are you sure that you want to delete all the collected data of the User?')">
+	<i class="glyphicon-delete-point"></i>        }
+	
+        </button>
+     </td>
+  </tr>
+  }
+  </table>
+  </div>
+  </div>
+</div>
+
+  <div class="tab-pane" id="filter">
+  <div class="panel panel-default" style = "width:49%; float:left">
+  <div class="panel-heading">Select Filter</div>
+     <div style = "margin:0 auto">
+@form(routes.Application.filter()) {
+      @inputText(stringForm("email"),'_label -> "E-Mail")
+      
+      <div style = "margin:0 auto">
+      	<div  style = " float:left">     
+	      @inputText(stringForm("year1"),'_label -> "Year From")
+     	</div>   
+      	<div style = "float:right; width:70%">  
+    	@inputText(stringForm("year2"),'_label -> "Year To")
+ 	  	</div>     
+      </div> 
+      <div style = "margin:0 auto">
+      	<div  style = " float:left">     
+<<<<<<< HEAD
+	      @inputDate(stringForm("date1"),'_label -> "Date From")
+     	</div>   
+      	<div style = "float:right; width:70%">  
+    	@inputDate(stringForm("date2"),'_label -> "Date To")
+=======
+	      @inputText(stringForm("date1"),'_label -> "Date From")
+     	</div>   
+      	<div style = "float:right; width:70%">  
+    	@inputText(stringForm("date2"),'_label -> "Date To")
+>>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
+ 	  	</div>     
+      </div> 
+      @inputText(stringForm("country"),'_label -> "Country (Shortcut)")
+      @inputText(stringForm("zipcode"),'_label -> "Zip Code")
+      <dt><label>Select</label></dt>
+      <div style = "margin:0 auto">
+      	<div  style = " float:left; width:10%">
+     		 @checkbox(stringForm("male"),'_label -> "Male")
+    	</div>
+     	<div style = "float:left; width:40%">
+     		 @checkbox(stringForm("female"),'_label -> "Female")
+ 	  	</div>
+     	<div style = "float:left; width:50%"> 	  	
+ 	  	      @checkbox(stringForm("returner"),'_label -> "Returner" )
+ 	  	</div> 	  	      
+ 	  </div>
+ 	  
+<<<<<<< HEAD
+ 	  <dt><label>Select Vehicle</label></dt>
+      <div style = "margin:0 auto">
+      	<div  style = " float:left; width:25%">
+     		 @checkbox(stringForm("car"),'_label -> "Car")
+    	</div>
+     	<div style = "float:left; width:25%">
+     		 @checkbox(stringForm("footbike"),'_label -> "Foot/Bike")
+ 	  	</div>
+     	<div style = "float:left; width:25%"> 	  	
+ 	  	      @checkbox(stringForm("ship"),'_label -> "Ship" )	
+ 	  	</div> 	  	            
+ 	  	<div style = "float:left; width:25%"> 	  	
+ 	  	      @checkbox(stringForm("bustrain"),'_label -> "Bus/Train" )
+ 	  	</div>	  
+ 	  </div>
+ 	  
+ 	  
+      <input type="submit" value="Filter" style = "float:left; width:40%">
+      }
+
+
+=======
+      <input type="submit" value="Filter" style = "float:left; width:40%">
+      }
+
+>>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
+      
+  </ul>
+  </div>
+      </div>
+      </div>
+      </div>
+</div>
+
+
+
+<<<<<<< HEAD
+ <div class="panel panel-default" style = "width:49%; float:right; height: 443px;">
+=======
+ <div class="panel panel-default" style = "width:50%; float:right; height: 443px;">
+>>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
+   <head> 
+    <meta charset="utf-8"/> 
+    
+    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+</head>
+<body>
+    <div id="pos" style="width:100%; height: 100%;">
+        
+    </div>
+    
+    <script>
+<<<<<<< HEAD
+      console.log("userFor");
+        function initialize() {
+        console.log("function");
+        var mapOptions = {
+          center: new google.maps.LatLng(47.6604704, 9.171972),
+          zoom: 10,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("pos"),
+            mapOptions);
+            
+            
+			// TEST1 
+	  @for(geo <- geolist) {
+		  	console.log(@geo.latitudeCenter);
+		  	console.log(@geo.longitudeCenter);
+		  
+		  var latlng = new google.maps.LatLng(@geo.latitudeCenter, @geo.longitudeCenter);
+		  
+		  var marker = new google.maps.Marker({
+                position: latlng, 
+                map: map, 
+                title: latlng.toString()
+            });
+            };
+
+		  };
+		  
+            initialize();
+        
+=======
+        function initialize(coords) {
+            var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
+            var mapOptions = {
+                zoom: 9,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.TERRAIN
+            };
+            var map = new google.maps.Map(document.getElementById("pos"), mapOptions);
+            
+            var marker = new google.maps.Marker({
+                position: latlng, 
+                map: map, 
+                title: "Hier bist du :)"
+            }); 		       
+			// TEST1  
+		  var coordSlvl_1 = [
+		  //  TODO: Einfügen von request 
+		  // TODO: Ohne Filter: mittlerer Aufenhaltsort für jeden Benutzer (Bewegungsmuster)
+		new google.maps.LatLng(47.65825, 9.17262),
+		new google.maps.LatLng(47.658482,9.170698),
+		new google.maps.LatLng(47.658814,9.170462),
+		new google.maps.LatLng(47.661734,9.172329),
+		new google.maps.LatLng(47.665072,9.173681)
+		
+		  ];
+		  // BLAU
+	    var fahrrad = new google.maps.Polyline({
+		    path: coordSlvl_1, 
+		    geodesic: true,
+		    // BLUE    
+		    strokeColor: '#3333FF',
+		    strokeOpacity: 1.0,
+		    strokeWeight: 2
+	  	});
+	  	
+	  		// GRÜN - Zu Fuß
+	  	  var zufuß = new google.maps.Polyline({
+	  	  	// TODO: andere Punkte
+		    path: coordSlvl_1,
+		    geodesic: true,
+		    // GREEN
+		    strokeColor: '#0C3707',
+		    strokeOpacity: 1.0,
+		    strokeWeight: 2
+		  });
+  
+  		  poly1 = new google.maps.Polyline(fahrrad);
+        //  		    var map = new google.maps.Map(document.getElementById('pos'), mapOptions);
+  		  poly1.setMap(map);
+        }
+  
+        navigator.geolocation.getCurrentPosition(function(position){ 
+            initialize(position.coords);
+        }, function(){
+            document.getElementById('pos').innerHTML = 'Deine Position konnte leider nicht ermittelt werden';
+        });
+>>>>>>> 0a6b2366ed4f3b96503baaa4ed7ee48c1354079b
+        
+                
+
+    </script>
+</body>
+     
+</div>
+</div>
+
+    </ul>
+    }
