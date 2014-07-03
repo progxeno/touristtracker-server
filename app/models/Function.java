@@ -184,6 +184,7 @@ public class Function {
 		String gender = "gender";
 		String returner = "returner";
 		String date1 = "date1";
+		String date2 = "date2";
 		List<User> userlist = new ArrayList<User>();
 
 		String foundmail = filterOptions.data().get(email);
@@ -192,6 +193,7 @@ public class Function {
 		String foundyear2 = filterOptions.data().get(year2);
 		String foundcountry = filterOptions.data().get(country);
 		String foundDate1 = filterOptions.data().get(date1);
+		String foundDate2 = filterOptions.data().get(date2);
 
 		if (!foundmail.isEmpty()) {
 			searchQuery.put(email, foundmail);
@@ -240,17 +242,22 @@ public class Function {
 
 		for (int i = 0; i < userlist.size(); i++) {
 			if (!foundDate1.isEmpty()) {
-				Timestamp lDate1 = Timestamp.valueOf(foundDate1
+				Timestamp tDate1 = Timestamp.valueOf(foundDate1
 						+ " 00:00:00.000000000");
 
-				Timestamp lUserDate = Timestamp
+				Timestamp tUserDate = Timestamp
 						.valueOf(userlist.get(i).dateFrom
 								+ " 00:00:00.000000000");
 
-				if (!lUserDate.after(lDate1)) {
+				userlist.get(i).dateFrom = foundDate1;
+				if (!foundDate2.isEmpty())
+					userlist.get(i).dateTo = foundDate2;
+
+				if (!tUserDate.after(tDate1)) {
 					userlist.remove(i);
 					i--;
 				}
+
 			}
 
 		}
