@@ -83,6 +83,13 @@ public class User {
 		}
 	}
 
+	/**
+	 * Updates the given Tourist by deleting the existing Tourist with the same userid
+	 * and adds him new to the Database.
+	 * I´ve implemented this because the "update()" Function of the jacksondriver didn´t work
+	 * correct.
+	 * @param user
+	 */
 	public static void myUserUpdate(User user) {
 
 		User.coll.removeById(user.id);

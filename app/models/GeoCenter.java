@@ -20,6 +20,12 @@ public class GeoCenter {
 
 	}
 
+	/**
+	 * Calculate the center of the collected GPS-data of one Tourist.
+	 * This Function is to display the movement pattern of the Tourists.
+	 * @param gpslogs
+	 * @return
+	 */
 	public static List<GeoCenter> getCenter(List<GPSLog> gpslogs) {
 
 		List<GeoCenter> geolist = new ArrayList<GeoCenter>();

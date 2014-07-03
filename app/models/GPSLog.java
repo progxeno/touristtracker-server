@@ -48,10 +48,20 @@ public class GPSLog {
 		GPSLog.coll.save(tracking);
 	}
 
+	/**
+	 * 
+	 * @return All collected GPS-Data
+	 */
 	public static List<GPSLog> all() {
 		return GPSLog.coll.find().toArray();
 	}
 
+	/**
+	 * Updates the given GPS-Data and set the attribute "progressed" to true.
+	 * I´ve implemented this because the "update()" Function of the jacksondriver didn´t work
+	 * correct.
+	 * @param log
+	 */
 	public static void myGPSUpdate(GPSLog log) {
 
 		GPSLog.coll.removeById(log.id);

@@ -20,6 +20,7 @@ public class Application extends Controller {
 	static Form<String> stringForm = Form.form(String.class);
 
 	private final static String JSON_PARSE_OK = "ok";
+	
 
 	@Security.Authenticated(Secured.class)
 	public static Result index() {
@@ -295,7 +296,7 @@ public class Application extends Controller {
 	}
 
 	/**
-	 * Clears the Logindata of the current session and opens the Login-Screen
+	 * Clears the Login-Data of the current session and opens the Login-Screen
 	 * again
 	 * 
 	 * @return redirect to the Login-Screen
