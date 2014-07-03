@@ -41,55 +41,52 @@ public class Function {
 				BasicDBObject query = new BasicDBObject("userid",
 						mixedList.get(i).userid);
 
+				query.put("progressed", false);
 				List<GPSLog> track = GPSLog.coll.find(query).toArray();
 
 				int isizeTracking = track.size();
-				/**
-				 * For-Loop to add every Tracking-data to the Tourist
-				 */
+
+				// For-Loop to add every Tracking-data to the Tourist
+
 				for (int j = 0; isizeTracking > j; j++) {
 
-					if (!track.get(j).progressed) {
+					// Converts the Timestamp into a Date Format
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					sdf.setTimeZone(TimeZone.getTimeZone("GMT+1"));
+					mixedList.get(i).dateTo = sdf
+							.format(track.get(j).timestamp);
 
-						// Converts the Timestamp into a Date Format
-						SimpleDateFormat sdf = new SimpleDateFormat(
-								"yyyy-MM-dd"); // the format of your date
-						sdf.setTimeZone(TimeZone.getTimeZone("GMT+1"));
-						mixedList.get(i).dateTo = sdf
-								.format(track.get(j).timestamp);
+					// Adds the received Distance of this GPS-Log to the
+					// Total Distance of the User
+					mixedList.get(i).dTotalDist = mixedList.get(i).dTotalDist
+							+ track.get(j).distance;
 
-						// Adds the received Distance of this GPS-Log to the
-						// Total Distance of the User
-						mixedList.get(i).dTotalDist = mixedList.get(i).dTotalDist
+					// Switch-Case to detect with what vehicle the Tourist
+					// has traveled
+					// and sums them to the corresponding distance for this
+					// Tourist
+					switch (track.get(j).vehicle) {
+					case 0:
+						mixedList.get(i).dFootOrBikeDist = mixedList.get(i).dFootOrBikeDist
 								+ track.get(j).distance;
-
-						// Switch-Case to detect with what vehicle the Tourist
-						// has traveled
-						// and sums them to the corresponding distance for this
-						// Tourist
-						switch (track.get(j).vehicle) {
-						case 0:
-							mixedList.get(i).dFootOrBikeDist = mixedList.get(i).dFootOrBikeDist
-									+ track.get(j).distance;
-							break;
-						case 1:
-							mixedList.get(i).dCarDist = mixedList.get(i).dCarDist
-									+ track.get(j).distance;
-							break;
-						case 2:
-							mixedList.get(i).dTrainOrBusDist = mixedList.get(i).dTrainOrBusDist
-									+ track.get(j).distance;
-							break;
-						case 3:
-							mixedList.get(i).dShipDist = mixedList.get(i).dShipDist
-									+ track.get(j).distance;
-							break;
-						}
-
-						// Updates the GPS-Log to detect that this log is
-						// already progressed
-						GPSLog.myGPSUpdate(track.get(j));
+						break;
+					case 1:
+						mixedList.get(i).dCarDist = mixedList.get(i).dCarDist
+								+ track.get(j).distance;
+						break;
+					case 2:
+						mixedList.get(i).dTrainOrBusDist = mixedList.get(i).dTrainOrBusDist
+								+ track.get(j).distance;
+						break;
+					case 3:
+						mixedList.get(i).dShipDist = mixedList.get(i).dShipDist
+								+ track.get(j).distance;
+						break;
 					}
+
+					// Updates the GPS-Log to detect that this log is
+					// already progressed
+					GPSLog.myGPSUpdate(track.get(j));
 
 				}
 				User.myUserUpdate(mixedList.get(i));
