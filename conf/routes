@@ -15,11 +15,6 @@ POST    /register              			controllers.Application.register()
 GET     /registerNewUser     			controllers.Application.authenticateToRegister()
 GET     /logout               			controllers.Application.logout()
 
-
-GET     /addUser           			    controllers.Application.newUser()
-GET     /addTracking       			    controllers.Application.newTracking()
-GET     /addRating         			    controllers.Application.newRating()
-
 GET     /displayRating/:userid/rating	controllers.Application.displayRating(userid: String)
 
 GET     /Distance/:id/singledistance	controllers.Application.displayDistance(id: String)
