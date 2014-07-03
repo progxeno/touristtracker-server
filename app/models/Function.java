@@ -54,7 +54,7 @@ public class Function {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					sdf.setTimeZone(TimeZone.getTimeZone("GMT+1"));
 					mixedList.get(i).dateTo = sdf
-							.format(track.get(j).timestamp);
+							.format(track.get(j).timestamp * 1000L);
 
 					// Adds the received Distance of this GPS-Log to the
 					// Total Distance of the User
@@ -288,57 +288,56 @@ public class Function {
 			for (int i = 0; isizeUser > i; i++) {
 				searchQuery.put("userid", userlist.get(i).userid);
 
+				if (filterOptions.data().containsKey("footbike")) {
+					searchQuery.put("vehicle", 0);
+				}
+				if (filterOptions.data().containsKey("car")) {
+					searchQuery.put("vehicle", 1);
+				}
+				if (filterOptions.data().containsKey("bustrain")) {
+					searchQuery.put("vehicle", 2);
+				}
+				if (filterOptions.data().containsKey("ship")) {
+					searchQuery.put("vehicle", 3);
+				}
+
+				if (!foundDate1.isEmpty() && !foundDate2.isEmpty()) {
+
+					Timestamp tDate1 = Timestamp.valueOf(foundDate1
+							+ " 00:00:00.000000000");
+
+					long lDate1 = tDate1.getTime();
+
+					Timestamp tDate2 = Timestamp.valueOf(foundDate2
+							+ " 00:00:00.000000000");
+
+					long lDate2 = tDate2.getTime();
+					filtertLogs.addAll(GPSLog.coll.find(searchQuery)
+							.greaterThanEquals("timestamp", lDate1)
+							.lessThanEquals("timestamp", lDate2).toArray());
+
+				} else if (!foundDate1.isEmpty() && foundDate2.isEmpty()) {
+
+					Timestamp tDate1 = Timestamp.valueOf(foundDate1
+							+ " 00:00:00.000000000");
+					long lDate1 = tDate1.getTime();
+
+					filtertLogs.addAll(GPSLog.coll.find(searchQuery)
+							.greaterThanEquals("timestamp", lDate1).toArray());
+
+				} else if (foundDate1.isEmpty() && !foundDate2.isEmpty()) {
+
+					Timestamp tDate2 = Timestamp.valueOf(foundDate2
+							+ " 00:00:00.000000000");
+
+					long lDate2 = tDate2.getTime();
+
+					filtertLogs.addAll(GPSLog.coll.find(searchQuery)
+							.lessThanEquals("timestamp", lDate2).toArray());
+				} else {
+					filtertLogs.addAll(GPSLog.coll.find(searchQuery).toArray());
+				}
 			}
-			if (filterOptions.data().containsKey("footbike")) {
-				searchQuery.put("vehicle", 0);
-			}
-			if (filterOptions.data().containsKey("car")) {
-				searchQuery.put("vehicle", 1);
-			}
-			if (filterOptions.data().containsKey("bustrain")) {
-				searchQuery.put("vehicle", 2);
-			}
-			if (filterOptions.data().containsKey("ship")) {
-				searchQuery.put("vehicle", 3);
-			}
-
-			if (!foundDate1.isEmpty() && !foundDate2.isEmpty()) {
-
-				Timestamp tDate1 = Timestamp.valueOf(foundDate1
-						+ " 00:00:00.000000000");
-
-				long lDate1 = tDate1.getTime();
-
-				Timestamp tDate2 = Timestamp.valueOf(foundDate2
-						+ " 00:00:00.000000000");
-
-				long lDate2 = tDate2.getTime();
-				filtertLogs = GPSLog.coll.find(searchQuery)
-						.greaterThanEquals("timestamp", lDate1)
-						.lessThanEquals("timestamp", lDate2).toArray();
-
-			} else if (!foundDate1.isEmpty() && foundDate2.isEmpty()) {
-
-				Timestamp tDate1 = Timestamp.valueOf(foundDate1
-						+ " 00:00:00.000000000");
-				long lDate1 = tDate1.getTime();
-
-				filtertLogs = GPSLog.coll.find(searchQuery)
-						.greaterThanEquals("timestamp", lDate1).toArray();
-
-			} else if (foundDate1.isEmpty() && !foundDate2.isEmpty()) {
-
-				Timestamp tDate2 = Timestamp.valueOf(foundDate2
-						+ " 00:00:00.000000000");
-
-				long lDate2 = tDate2.getTime();
-
-				filtertLogs = GPSLog.coll.find(searchQuery)
-						.lessThanEquals("timestamp", lDate2).toArray();
-			} else {
-				filtertLogs = GPSLog.coll.find(searchQuery).toArray();
-			}
-
 		}
 
 		return filtertLogs;

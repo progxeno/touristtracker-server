@@ -20,7 +20,6 @@ public class Application extends Controller {
 	static Form<String> stringForm = Form.form(String.class);
 
 	private final static String JSON_PARSE_OK = "ok";
-	
 
 	@Security.Authenticated(Secured.class)
 	public static Result index() {
@@ -28,7 +27,7 @@ public class Application extends Controller {
 				GPSLog.all(), GeoCenter.getCenter(GPSLog.all())));
 	}
 
-	/**
+		/**
 	 * Checks the HTTP request and convert it into a Json Node. The Json Node is
 	 * convert into an Tourist (User) Object. If this Tourist Object matches my
 	 * defined Object, it is store in the Database.
