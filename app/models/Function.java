@@ -192,6 +192,7 @@ public class Function {
 		String foundDate1 = filterOptions.data().get(date1);
 		String foundDate2 = filterOptions.data().get(date2);
 
+		
 		if (!foundmail.isEmpty()) {
 			searchQuery.put(email, foundmail);
 		}
@@ -237,6 +238,23 @@ public class Function {
 			userlist = User.coll.find(searchQuery).toArray();
 		}
 
+		if (filterOptions.data().containsKey("footbike")) {
+			userlist = User.coll.find(searchQuery)
+					.greaterThan("dFootOrBikeDist", 0.01).toArray();
+		}
+		if (filterOptions.data().containsKey("car")) {		
+			userlist = User.coll.find(searchQuery)
+					.greaterThan("dCarDist", 0.01).toArray();
+		}
+		if (filterOptions.data().containsKey("bustrain")) {
+			userlist = User.coll.find(searchQuery)
+					.greaterThan("dTrainOrBusDist", 0.01).toArray();
+		}
+		if (filterOptions.data().containsKey("ship")) {	
+			userlist = User.coll.find(searchQuery)
+					.greaterThan("dShipDist", 0.01).toArray();
+		}
+		
 		for (int i = 0; i < userlist.size(); i++) {
 			if (!foundDate1.isEmpty()) {
 				Timestamp tDate1 = Timestamp.valueOf(foundDate1
@@ -263,7 +281,7 @@ public class Function {
 
 	/**
 	 * Search in the List of GPS-logs for the Tourists witch the selected filter
-	 * creteria and finds the corresponding GPS-data. These Data are filtered
+	 * criteria and finds the corresponding GPS-data. These Data are filtered
 	 * with two different selection criteria. Vehicle and Date From.
 	 * 
 	 * @param userlist
