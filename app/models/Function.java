@@ -55,32 +55,33 @@ public class Function {
 					sdf.setTimeZone(TimeZone.getTimeZone("GMT+1"));
 					mixedList.get(i).dateTo = sdf
 							.format(track.get(j).timestamp * 1000L);
-
+					
 					// Adds the received Distance of this GPS-Log to the
-					// Total Distance of the User
-					mixedList.get(i).dTotalDist = mixedList.get(i).dTotalDist
-							+ track.get(j).distance;
-
+					// Total Distance of the User and
+					// rounds the Total Distance so that it only has 2 decimals
+					mixedList.get(i).dTotalDist= Math.round((mixedList.get(i).dTotalDist
+							+ track.get(j).distance)*Math.pow(10d,2))/Math.pow(10d,2);
+					
 					// Switch-Case to detect with what vehicle the Tourist
 					// has traveled
 					// and sums them to the corresponding distance for this
 					// Tourist
 					switch (track.get(j).vehicle) {
 					case 0:
-						mixedList.get(i).dFootOrBikeDist = mixedList.get(i).dFootOrBikeDist
-								+ track.get(j).distance;
+						mixedList.get(i).dFootOrBikeDist = Math.round((mixedList.get(i).dFootOrBikeDist
+									+ track.get(j).distance)*Math.pow(10d,2))/Math.pow(10d,2);
 						break;
 					case 1:
-						mixedList.get(i).dCarDist = mixedList.get(i).dCarDist
-								+ track.get(j).distance;
+						mixedList.get(i).dCarDist = Math.round((mixedList.get(i).dCarDist
+								+ track.get(j).distance)*Math.pow(10d,2))/Math.pow(10d,2);
 						break;
 					case 2:
-						mixedList.get(i).dTrainOrBusDist = mixedList.get(i).dTrainOrBusDist
-								+ track.get(j).distance;
+						mixedList.get(i).dTrainOrBusDist = Math.round((mixedList.get(i).dTrainOrBusDist
+								+ track.get(j).distance)*Math.pow(10d,2))/Math.pow(10d,2);
 						break;
 					case 3:
-						mixedList.get(i).dShipDist = mixedList.get(i).dShipDist
-								+ track.get(j).distance;
+						mixedList.get(i).dShipDist = Math.round((mixedList.get(i).dShipDist
+								+ track.get(j).distance)*Math.pow(10d,2))/Math.pow(10d,2);
 						break;
 					}
 
@@ -116,6 +117,20 @@ public class Function {
 
 		return selectedUserRating;
 	}
+	
+	
+	public static List<GPSLog> singelUser(String userid) {
+		BasicDBObject query = new BasicDBObject("userid", userid);
+
+		DBCursor<GPSLog> cursor = GPSLog.coll.find(query);
+		
+		cursor.sort(new BasicDBObject("timestamp", 1));
+		
+		List<GPSLog> singelUserGPSLogs = cursor.toArray();
+
+		return singelUserGPSLogs;
+	}
+	
 
 	/**
 	 * This Method search for all distances that are given by the Tourist

@@ -4,7 +4,7 @@
 
 # Home page
 GET     /	                 			controllers.Application.login()
-GET     /user                           controllers.Application.index()
+GET     /home                           controllers.Application.index()
 GET     /assets/*file               	controllers.Assets.at(path="/public", file)
 
 
@@ -14,6 +14,12 @@ POST    /login                 			controllers.Application.authenticate()
 POST    /register              			controllers.Application.register()
 GET     /registerNewUser     			controllers.Application.authenticateToRegister()
 GET     /logout               			controllers.Application.logout()
+
+GET    /addUser              			controllers.Application.newUser()
+GET    /addGPS              			controllers.Application.newTracking()
+
+
+GET     /rout/:userid/getRout           controllers.Application.getRout(userid: String)
 
 GET     /displayRating/:userid/rating	controllers.Application.displayRating(userid: String)
 

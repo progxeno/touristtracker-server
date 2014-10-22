@@ -24,7 +24,7 @@ public class LoginUser {
 
 	public LoginUser(String email, String password) {
 		this.email = email;
-		this.password = password;
+		this.password = String.valueOf(password.hashCode());
 
 	}
 
@@ -46,8 +46,10 @@ public class LoginUser {
 				}
 			}
 
-		if (bNewUser)
+		if (bNewUser){
+			user.password = String.valueOf(user.password.hashCode());
 			LoginUser.coll.save(user);
+		}
 	}
 
 	public static boolean checkUser(Form<LoginUser> loginForm) {
@@ -55,7 +57,7 @@ public class LoginUser {
 		LoginUser user = loginForm.get();
 		BasicDBObject searchQuery = new BasicDBObject();
 		searchQuery.put("email", user.email);
-		searchQuery.put("password", user.password);
+		searchQuery.put("password", String.valueOf(user.password.hashCode()));
 		if (LoginUser.coll.find(searchQuery).size() == 1)
 			return true;
 		else

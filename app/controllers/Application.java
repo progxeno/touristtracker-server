@@ -20,19 +20,19 @@ public class Application extends Controller {
 	static Form<String> stringForm = Form.form(String.class);
 
 	private final static String JSON_PARSE_OK = "ok";
-
+	
 	@Security.Authenticated(Secured.class)
 	public static Result index() {
 		return ok(views.html.user.render(User.displayAll(), stringForm,
-				GPSLog.all(), GeoCenter.getCenter(GPSLog.all())));
+				GPSLog.all())); //GeoCenter.getCenter(GPSLog.all())
 	}
 
-//	public static Result newUser() {
-//
-//		User user = new User("123abc", "Tourist1@tracking.de", 1991,
-//				"78467", "D", true, true);
-//		User.create(user);
-//
+	public static Result newUser() {
+
+		User user = new User("3289712368", "Rout@Test.de", 1991,
+				"64285", "D", true, false);
+		User.create(user);
+
 //		 User user2 = new User("456abc", "Tourist2@tracking.de", 1988,
 //		 "78462", "I", true, false);
 //		 User.create(user2);
@@ -52,8 +52,8 @@ public class Application extends Controller {
 //		 User user6 = new User("789def", "Tourist6@tracking.de", 1989, "42535",
 //		 "EN", true, true);
 //		 User.create(user6);
-//		return redirect(routes.Application.index());
-//	}
+		return redirect(routes.Application.index());
+	}
 //
 //	public static Result newRating() {
 //
@@ -102,35 +102,96 @@ public class Application extends Controller {
 //		return redirect(routes.Application.index());
 //	}
 //
-//	public static Result newTracking() {
-//
-//		GPSLog track = new GPSLog("123abc", 0, 1405031643, 47.679258, 9.154358, 
-//				13.1);
-//		GPSLog.create(track);
-//
-//		GPSLog track0 = new GPSLog("123abc", 3, 1405550043, 47.680183, 9.179077, 
-//				19.3);
-//		GPSLog.create(track0);
-//
-//		GPSLog track4 = new GPSLog("789abc", 1, 1404599643, 47.660763, 9.172211,
-//				11.2);
-//		GPSLog.create(track4);
-//
-//		GPSLog track5 = new GPSLog("123def", 3, 1405031643, 47.664462, 
-//				9.456482, 12.3);
-//		GPSLog.create(track5);
-//
-//		GPSLog track6 = new GPSLog("456def", 2, 1434392800, 47.696823, 
-//				9.268341, 14.0);
-//		GPSLog.create(track6);
-//
-//		GPSLog track7 = new GPSLog("789def", 3, 1474342800, 47.693126, 
-//				9.185944, 10.5);
-//		GPSLog.create(track7);
-//
-//		Function.withTrack();
-//		return redirect(routes.Application.index());
-//	}
+	public static Result newTracking() {
+
+		GPSLog track = new GPSLog("3289712368", 0, 1405031643, 47.67352, 9.18467, 
+				13.1);
+		GPSLog.create(track);
+		GPSLog track1 = new GPSLog("3289712368", 0, 1405031644, 47.67361, 9.18576, 
+				13.1);
+		GPSLog.create(track1);
+		GPSLog track2 = new GPSLog("3289712368", 0, 1405031645, 47.67372, 9.18717, 
+				13.1);
+		GPSLog.create(track2);
+		GPSLog track3 = new GPSLog("3289712368", 0, 1405031646, 47.67382, 9.18913, 
+				13.1);
+		GPSLog.create(track3);
+		GPSLog track4 = new GPSLog("3289712368", 0, 1405031647, 47.67379, 9.19231, 
+				13.1);
+		GPSLog.create(track4);
+		GPSLog track5 = new GPSLog("3289712368", 0, 1405031648, 47.67306, 9.19290, 
+				13.1);
+		GPSLog.create(track5);
+		GPSLog track6 = new GPSLog("3289712368", 1, 1405031649, 47.67087, 9.18882, 
+				13.1);
+		GPSLog.create(track6);
+		GPSLog track7 = new GPSLog("3289712368", 1, 1405031650, 47.67029, 9.18745, 
+				13.1);
+		GPSLog.create(track7);
+		GPSLog track8 = new GPSLog("3289712368", 1, 1405031651, 47.66896, 9.19247, 
+				13.1);
+		GPSLog.create(track8);
+		GPSLog track9 = new GPSLog("3289712368", 1, 1405031652, 47.66887, 9.19238, 
+				13.1);
+		GPSLog.create(track9);
+		GPSLog tracka = new GPSLog("3289712368", 1, 1405031653, 47.66685, 9.19899, 
+				13.1);
+		GPSLog.create(tracka);
+		GPSLog tracks = new GPSLog("3289712368", 1, 1405031654, 47.66581, 9.20311, 
+				13.1);
+		GPSLog.create(tracks);
+		GPSLog trackd = new GPSLog("3289712368", 1, 1405031655, 47.66679, 9.20650, 
+				13.1);
+		GPSLog.create(trackd);
+		GPSLog trackf = new GPSLog("3289712368", 1, 1405031656, 47.66714, 9.21148, 
+				13.1);
+		GPSLog.create(trackf);
+		GPSLog trackg = new GPSLog("3289712368", 0, 1405031657, 47.66679, 9.21551, 
+				13.1);
+		GPSLog.create(trackg);
+		GPSLog trackh = new GPSLog("3289712368", 0, 1405031658, 47.66604, 9.21770, 
+				13.1);
+		GPSLog.create(trackh);
+		GPSLog trackj = new GPSLog("3289712368", 3, 1405031659, 47.66414, 9.22886, 
+				13.1);
+		GPSLog.create(trackj);
+		GPSLog trackk = new GPSLog("3289712368", 3, 1405031660, 47.66197, 9.25598, 
+				13.1);
+		GPSLog.create(trackk);
+		GPSLog trackq = new GPSLog("3289712368", 3, 1405031661, 47.65966, 9.27864, 
+				13.1);
+		GPSLog.create(trackq);
+		GPSLog trackw = new GPSLog("3289712368", 3, 1405031662, 47.65688, 9.30130, 
+				13.1);
+		GPSLog.create(trackw);
+		GPSLog tracky = new GPSLog("3289712368", 3, 1405031663, 47.65596, 9.32877, 
+				13.1);
+		GPSLog.create(tracky);
+		GPSLog trackx = new GPSLog("3289712368", 3, 1405031664, 47.65318, 9.35211, 
+				13.1);
+		GPSLog.create(trackx);
+		GPSLog trackc = new GPSLog("3289712368", 3, 1405031665, 47.65272, 9.37683, 
+				13.1);
+		GPSLog.create(trackc);
+		GPSLog trackv = new GPSLog("3289712368", 3, 1405031666, 47.64856, 9.42009, 
+				13.1);
+		GPSLog.create(trackv);
+		GPSLog trackb = new GPSLog("3289712368", 3, 1405031667, 47.64763, 9.45305, 
+				13.1);
+		GPSLog.create(trackb);
+		GPSLog trackn = new GPSLog("3289712368", 3, 1405031668, 47.64763, 9.47708, 
+				13.1);
+		GPSLog.create(trackn);
+		GPSLog trackm = new GPSLog("3289712368", 3, 1405031669, 47.64987, 9.48395, 
+				13.1);
+		GPSLog.create(trackm);
+		
+		
+
+
+		Function.withTrack();
+		return redirect(routes.Application.index());
+	}
 
 	/**
 	 * Checks the HTTP request and convert it into a Json Node. The Json Node is
@@ -145,7 +206,7 @@ public class Application extends Controller {
 
 		if (jUser == null) {
 
-			return ok("Du schickst das Falsch!! User  Json == null");
+			return ok("Wrong Message! addUser  Json == null");
 
 		} else {
 
@@ -170,7 +231,7 @@ public class Application extends Controller {
 				.withArray("gpscollection");
 
 		if (jTracking == null) {
-			return ok("Du schickst das Falsch!! Tracking Json == null");
+			return ok("Wrong Message! addTracking Json == null");
 		} else {
 
 			for (int i = 0; i < jTracking.size(); i++) {
@@ -195,7 +256,7 @@ public class Application extends Controller {
 				.withArray("ratingcollection");
 
 		if (jRating == null) {
-			return ok("Du schickst das Falsch!! Rating Json == null");
+			return ok("Wrong Message! addRating Json == null");
 		} else {
 
 			for (int i = 0; i < jRating.size(); i++) {
@@ -230,7 +291,7 @@ public class Application extends Controller {
 		Function.deleteRating(id);
 		List<GPSLog> test = null;
 		return ok(views.html.user.render(Function.withTrack(), stringForm,
-				test, GeoCenter.getCenter(GPSLog.all())));
+				test)); //, GeoCenter.getCenter(GPSLog.all())
 	}
 
 	/**
@@ -266,8 +327,8 @@ public class Application extends Controller {
 		Form<String> filterOptions = stringForm.bindFromRequest();
 		List<User> userlist = Function.multiFilter(filterOptions);
 		List<GPSLog> gpslog = Function.gpsfilter(userlist, filterOptions);
-		return ok(views.html.user.render(userlist, stringForm, gpslog,
-				GeoCenter.getCenter(gpslog)));
+		return ok(views.html.user.render(userlist, stringForm, gpslog
+				));
 
 	}
 
@@ -305,7 +366,7 @@ public class Application extends Controller {
 		} else {
 			session().clear();
 			session("email", loginForm.get().email);
-			session("password", loginForm.get().password);
+			session("password", String.valueOf(loginForm.get().password.hashCode()));
 			if (LoginUser.checkUser(loginForm))
 				return redirect(routes.Application.index());
 			else
@@ -333,6 +394,13 @@ public class Application extends Controller {
 		Form<LoginUser> loginForm = Form.form(LoginUser.class)
 				.bindFromRequest();
 		return ok(views.html.addUser.render(loginForm));
+	}
+	
+	public static Result getRout(String userid){
+		
+		return ok(Json.toJson(GeoCenter.getCenter(Function.singelUser(userid))));
+		
+	//	return ok(rout);
 	}
 
 }

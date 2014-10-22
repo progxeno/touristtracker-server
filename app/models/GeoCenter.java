@@ -1,7 +1,10 @@
 package models;
 
-import java.util.ArrayList;
+
 import java.util.List;
+
+import play.libs.Json;
+
 
 public class GeoCenter {
 
@@ -19,45 +22,19 @@ public class GeoCenter {
 	public GeoCenter() {
 
 	}
-
+	
 	/**
 	 * Calculate the center of the collected GPS-data of one Tourist.
 	 * This Function is to display the movement pattern of the Tourists.
 	 * @param gpslogs
+	 * @param userid
 	 * @return List witch one GPS-Date for each Tourist
 	 */
-	public static List<GeoCenter> getCenter(List<GPSLog> gpslogs) {
+	public static String getCenter(List<GPSLog> singelUserGPSLogs){
+		
+		String json = Json.toJson(singelUserGPSLogs).toString();
 
-		List<GeoCenter> geolist = new ArrayList<GeoCenter>();
-
-		for (int i = 0; i < gpslogs.size(); i++) {
-			GeoCenter geo = new GeoCenter();
-			int counter = 0;
-			GPSLog log = gpslogs.get(i);
-
-			for (int j = 1; j < gpslogs.size(); j++) {
-
-				if (log.userid.equals(gpslogs.get(j).userid)) {
-
-					geo.longitudeCenter = geo.longitudeCenter
-							+ gpslogs.get(j).longitude;
-					geo.latitudeCenter = geo.latitudeCenter
-							+ gpslogs.get(j).latitude;
-					counter++;
-					gpslogs.remove(j);
-				}
-			}
-
-			if (counter != 0) {
-				geo.longitudeCenter = geo.longitudeCenter / counter;
-				geo.latitudeCenter = geo.latitudeCenter / counter;
-			}
-
-			geolist.add(geo);
-
-		}
-
-		return geolist;
+		return json;
 
 	}
 }

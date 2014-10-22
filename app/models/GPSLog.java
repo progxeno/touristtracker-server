@@ -28,14 +28,15 @@ public class GPSLog {
 			.getCollection("GPSLog", GPSLog.class, String.class);
 
 	public GPSLog(String userid, int vehicle, long timestamp, double latitude,
-			double longitude, double distance) {// Date daDate,
+			double longitude, double distance) {
 
 		this.userid = userid;
 		this.vehicle = vehicle;
 		this.timestamp = timestamp;
 		this.latitude = latitude;
 		this.longitude = longitude;
-		this.distance = distance;
+		this.distance = 
+				Math.round((distance)*Math.pow(10d,2))/Math.pow(10d,2);
 		this.progressed = false;
 	}
 
@@ -55,7 +56,7 @@ public class GPSLog {
 	public static List<GPSLog> all() {
 		return GPSLog.coll.find().toArray();
 	}
-
+	
 	/**
 	 * Updates the given GPS-Data and set the attribute "progressed" to true.
 	 * I´ve implemented this because the "update()" Function of the jacksondriver didn´t work
