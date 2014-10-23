@@ -161,7 +161,7 @@
                      <dt><label>Select Vehicle</label></dt>
                      <div style = "margin:0 auto">
                         <div  style = " float:left; width:25%">
-                           @checkbox(stringForm("car"),'_label -> "Car")
+                           @checkbox(stringForm("vehicle"),'_label -> "Car")
                         </div>
                         <div style = "float:left; width:25%">
                            @checkbox(stringForm("footbike"),'_label -> "Foot/Bike")
@@ -181,15 +181,15 @@
 </div>
 </div>
 <div class="modal hide" id="pleaseWaitDialog" data-backdrop="static" data-keyboard="false">
-        <div class="modal-header">
-            <h1>Processing...</h1>
-        </div>
-        <div class="modal-body">
-            <div class="progress progress-striped active">
-                <div class="bar" style="width: 100%;"></div>
-            </div>
-        </div>
-    </div>
+<div class="modal-header">
+<h1>Processing...</h1>
+</div>
+<div class="modal-body">
+<div class="progress progress-striped active">
+<div class="bar" style="width: 100%;"></div>
+</div>
+</div>
+</div>
 </div>
 <div class="panel panel-default" style = "width:49%; float:right; height: 443px;">
 <head>
@@ -199,89 +199,172 @@
 <body>
 <div id="pos" style="width:100%; height: 100%;">
 </div>
-
 <script>
-
-     function initialize() {
-     var mapOptions = {
-       center: new google.maps.LatLng(47.6604704, 9.171972),
-       zoom: 10,
-       mapTypeId: google.maps.MapTypeId.ROADMAP
-     };
-     
-     var map = new google.maps.Map(document.getElementById("pos"),
-         mapOptions);
-         
-         
+   function initialize() {
+   var mapOptions = {
+     center: new google.maps.LatLng(47.6604704, 9.171972),
+     zoom: 10,
+     mapTypeId: google.maps.MapTypeId.ROADMAP
+   };
+   
+   var map = new google.maps.Map(document.getElementById("pos"),
+       mapOptions);
        
-		$(document).ready(function(){
-       var colorCounter = 0;
-@for(user <- users) {
+       
+     
+   $(document).ready(function(){
+     var colorCounter = 0;
+   @for(user <- users) {
    // add loading image to div
    $('#pleaseWaitDialog');
    
    // run ajax request
    $.ajax({
-       type: "GET",
-       dataType: "json",
-       url: "/rout/@user.userid/getRout ",
-       success: function (rout) {
-       
-              var json = JSON.parse(rout);
-              var userMap = "@user.userid";
-     		  var rout = [];
-			  var Colors = [
-   					"#FF0000", 
-   					"#00FF00", 
-   					"#0000FF", 
-   					"#FFFFFF", 
-   					"#000000", 
-   					"#FFFF00", 
-   					"#00FFFF", 
-  					"#FF00FF"
-					];
-       
-       				for (var i = 0; i < json.length; i++) {
-       				
-						rout.push(new google.maps.LatLng(json[i].latitude, json[i].longitude));
-						
-					}//end for
-		
-					  	var pLine = new google.maps.Polyline({
-					    path: rout,
-					    geodesic: true,
-					    // Orange     
-					    strokeColor: Colors[colorCounter],
-					    strokeOpacity: 1.0,
-					    strokeWeight: 2
-					  });
-
-				     
-					   userMap = new google.maps.Polyline(pLine); 
-					   userMap.setMap(map);
-       
-				colorCounter++;
-				
-       }//end function
-       
-       
+     type: "GET",
+     dataType: "json",
+     url: "/rout/@user.userid/getRout",
+     success: function (rout) {
+     
+     		
+     		
+            var json = JSON.parse(rout);
+            var userMap = "@user.userid";
+     
+     				for (var i = 0; i < json.length; i++) {
+     				
+			    		var f=[];
+   		  				var c=[];
+   		  				var b=[];
+   		  				var s=[];
+     		
+     			 /**
+     			 		if(i >= 1 && json[i].vehicle != json[i-1].vehicle){
+   				       			 				
+     			 				switch(json[i].vehicle) {
+  								 case 0:
+      								f.push(new google.maps.LatLng(json[i-1].latitude, json[i-1].longitude));
+      								break;
+   								 case 1:
+      								c.push(new google.maps.LatLng(json[i-1].latitude, json[i-1].longitude));
+      								break;
+          						 case 2:
+      								b.push(new google.maps.LatLng(json[i-1].latitude, json[i-1].longitude));
+      								break;
+          						 case 3:
+      								s.push(new google.maps.LatLng(json[i-1].latitude, json[i-1].longitude));
+      								break;
+   								}//end switch
+     	  				}//end if
+     	  		**/
+     	  		
+     	  		
+     	  if(json[i].vehicle == 0) {
+   
+   			if(i>=1){
+     	  			f.push(new google.maps.LatLng(json[i-1].latitude, json[i-1].longitude));
+     	  		}
+   				f.push(new google.maps.LatLng(json[i].latitude, json[i].longitude));
+   		};
+   	
+   	var footBike = new google.maps.Polyline({       
+       path: f, 
+       geodesic: true,
+       // BLUE    
+       strokeColor: '#008000',
+       strokeOpacity: 1.0,
+       strokeWeight: 2
+     });
+   
+     userMap = new google.maps.Polyline(footBike);
+     userMap.setMap(map);				  
+   	
+   	// BLACK 
+     	  if(json[i].vehicle == 1) { 
+     	  		if(i>=1){
+     	  			c.push(new google.maps.LatLng(json[i-1].latitude, json[i-1].longitude));
+     	  		}
+   				c.push(new google.maps.LatLng(json[i].latitude, json[i].longitude));
+   	};
+   	
+   	var car = new google.maps.Polyline({
+       path: c,
+       geodesic: true,
+       // BLACK     
+       strokeColor: '#FF0000',
+       strokeOpacity: 1.0,
+       strokeWeight: 2
+     });
+   	
+     userMap = new google.maps.Polyline(car);
+     userMap.setMap(map);
+    
+   
+   	
+   	// GREEN  
+     	  if(json[i].vehicle == 2) { 
+     	  		if(i>=1){
+     	  			b.push(new google.maps.LatLng(json[i-1].latitude, json[i-1].longitude));
+     	  		}
+   				b.push(new google.maps.LatLng(json[i].latitude, json[i].longitude));
+   	};
+   	var busTrain = new google.maps.Polyline({
+       path: b,
+       geodesic: true,
+       // GREEN
+       strokeColor: '#FFFF00',
+       strokeOpacity: 1.0,
+       strokeWeight: 2
+     });
+   
+     userMap = new google.maps.Polyline(busTrain);
+     userMap.setMap(map);
+     
+   	// RED  
+     	  if(json[i].vehicle == 3) {
+     	  		if(i>=1){
+     	  			s.push(new google.maps.LatLng(json[i-1].latitude, json[i-1].longitude));
+     	  		}
+   				s.push(new google.maps.LatLng(json[i].latitude, json[i].longitude));
+   	};
+     var ferry = new google.maps.Polyline({
+       path: s,
+       geodesic: true,
+       // RED     
+       strokeColor: '#FFA500',
+       strokeOpacity: 1.0,
+       strokeWeight: 2
+     });
+     
+     
+     userMap = new google.maps.Polyline(ferry);
+     userMap.setMap(map);  
+     						
+     				
+     				
+   	//rout.push(new google.maps.LatLng(json[i].latitude, json[i].longitude));
+   	
+   }//end for
+   
+     }//end function
+     
+     
    });//end $.ajax
    
    };//end for(user <- users) 
    
    });//end $(document).ready(function()
-
-
-
    
-         
-         
+   
+   
+   
+       
+       
    };//end initialize();
    
-         initialize();
-     
-     
-             
+       initialize();
+   
+   
+           
    
 </script>
 </body>

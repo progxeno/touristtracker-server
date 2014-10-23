@@ -35,3 +35,6 @@ POST    /addJUserRating   		    	controllers.Application.jsonRating()
 POST    /addJGPSlog      		 		controllers.Application.jsonTracking()
 
 GET     /filter			     			controllers.Application.filter()
+
+GET		/search							controllers.Application.search()
+

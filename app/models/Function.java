@@ -123,11 +123,10 @@ public class Function {
 		BasicDBObject query = new BasicDBObject("userid", userid);
 
 		DBCursor<GPSLog> cursor = GPSLog.coll.find(query);
-		
 		cursor.sort(new BasicDBObject("timestamp", 1));
 		
 		List<GPSLog> singelUserGPSLogs = cursor.toArray();
-
+		
 		return singelUserGPSLogs;
 	}
 	
@@ -306,8 +305,8 @@ public class Function {
 	public static List<GPSLog> gpsfilter(List<User> userlist,
 			Form<String> filterOptions) {
 
-		BasicDBObject searchQuery = new BasicDBObject();
-
+		BasicDBObject searchQuery = new BasicDBObject(); 
+		BasicDBObject sortquery = new BasicDBObject("timestamp", 1);
 		String foundDate1 = filterOptions.data().get("date1");
 		String foundDate2 = filterOptions.data().get("date2");
 		int isizeUser = userlist.size();
@@ -347,7 +346,7 @@ public class Function {
 					long lDate2 = tDate2.getTime();
 					filtertLogs.addAll(GPSLog.coll.find(searchQuery)
 							.greaterThanEquals("timestamp", lDate1)
-							.lessThanEquals("timestamp", lDate2).toArray());
+							.lessThanEquals("timestamp", lDate2).sort(sortquery).toArray());
 
 				} else if (!foundDate1.isEmpty() && foundDate2.isEmpty()) {
 
@@ -356,7 +355,7 @@ public class Function {
 					long lDate1 = tDate1.getTime();
 
 					filtertLogs.addAll(GPSLog.coll.find(searchQuery)
-							.greaterThanEquals("timestamp", lDate1).toArray());
+							.greaterThanEquals("timestamp", lDate1).sort(sortquery).toArray());
 
 				} else if (foundDate1.isEmpty() && !foundDate2.isEmpty()) {
 
@@ -366,9 +365,9 @@ public class Function {
 					long lDate2 = tDate2.getTime();
 
 					filtertLogs.addAll(GPSLog.coll.find(searchQuery)
-							.lessThanEquals("timestamp", lDate2).toArray());
+							.lessThanEquals("timestamp", lDate2).sort(sortquery).toArray());
 				} else {
-					filtertLogs.addAll(GPSLog.coll.find(searchQuery).toArray());
+					filtertLogs.addAll(GPSLog.coll.find(searchQuery).sort(sortquery).toArray());
 				}
 			}
 		}
