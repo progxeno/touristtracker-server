@@ -1,6 +1,9 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import models.Function;
 import models.GPSLog;
@@ -11,10 +14,12 @@ import models.UserRating;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http.Request;
 import play.mvc.Result;
 import play.mvc.Security;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.mongodb.BasicDBObject;
 
 public class Application extends Controller {
 	static Form<String> stringForm = Form.form(String.class);
@@ -23,10 +28,8 @@ public class Application extends Controller {
 
 	@Security.Authenticated(Secured.class)
 	public static Result index() {
-		System.out.print(request());
 
-		return ok(views.html.user.render(User.displayAll(), stringForm,
-				GPSLog.all())); // GeoCenter.getCenter(GPSLog.all())
+		return ok(views.html.user.render(User.displayAll())); // GeoCenter.getCenter(GPSLog.all())
 	}
 
 	public static Result newUser() {
@@ -108,86 +111,86 @@ public class Application extends Controller {
 	//
 	public static Result newTracking() {
 
-		GPSLog track = new GPSLog("3289712368", 0, 1405031643, 47.67352,
-				9.18467, 13.1);
+		GPSLog track = new GPSLog("3289712368", 0, 1407717243, 47.67356,
+				9.18467, 0.2);
 		GPSLog.create(track);
-		GPSLog track1 = new GPSLog("3289712368", 0, 1405031644, 47.67361,
-				9.18576, 13.1);
+		GPSLog track1 = new GPSLog("3289712368", 0, 1407717244, 47.67369,
+				9.18576, 0.2);
 		GPSLog.create(track1);
-		GPSLog track2 = new GPSLog("3289712368", 0, 1405031645, 47.67372,
-				9.18717, 13.1);
+		GPSLog track2 = new GPSLog("3289712368", 0, 1407717245, 47.67379,
+				9.18717, 0.2);
 		GPSLog.create(track2);
-		GPSLog track3 = new GPSLog("3289712368", 0, 1405031646, 47.67382,
-				9.18913, 13.1);
+		GPSLog track3 = new GPSLog("3289712368", 0, 1407717246, 47.67389,
+				9.18913, 0.2);
 		GPSLog.create(track3);
-		GPSLog track4 = new GPSLog("3289712368", 0, 1405031647, 47.67379,
-				9.19231, 13.1);
+		GPSLog track4 = new GPSLog("3289712368", 0, 1407717247, 47.67385,
+				9.19231, 0.2);
 		GPSLog.create(track4);
-		GPSLog track5 = new GPSLog("3289712368", 0, 1405031648, 47.67306,
-				9.19290, 13.1);
+		GPSLog track5 = new GPSLog("3289712368", 0, 1407717248, 47.67311,
+				9.19290, 0.2);
 		GPSLog.create(track5);
-		GPSLog track6 = new GPSLog("3289712368", 1, 1405031649, 47.67087,
-				9.18882, 13.1);
+		GPSLog track6 = new GPSLog("3289712368", 1, 1407717249, 47.67094,
+				9.18882, 0.2);
 		GPSLog.create(track6);
-		GPSLog track7 = new GPSLog("3289712368", 1, 1405031650, 47.67029,
-				9.18745, 13.1);
+		GPSLog track7 = new GPSLog("3289712368", 1, 1407717250, 47.67034,
+				9.18745, 0.2);
 		GPSLog.create(track7);
-		GPSLog track8 = new GPSLog("3289712368", 1, 1405031651, 47.66896,
-				9.19247, 13.1);
+		GPSLog track8 = new GPSLog("3289712368", 1, 1407717251, 47.66901,
+				9.19247, 0.2);
 		GPSLog.create(track8);
-		GPSLog track9 = new GPSLog("3289712368", 1, 1405031652, 47.66887,
-				9.19238, 13.1);
+		GPSLog track9 = new GPSLog("3289712368", 1, 1407717252, 47.66892,
+				9.19238, 0.2);
 		GPSLog.create(track9);
-		GPSLog tracka = new GPSLog("3289712368", 1, 1405031653, 47.66685,
-				9.19899, 13.1);
+		GPSLog tracka = new GPSLog("3289712368", 1, 1407717253, 47.66690,
+				9.19899, 0.2);
 		GPSLog.create(tracka);
-		GPSLog tracks = new GPSLog("3289712368", 1, 1405031654, 47.66581,
-				9.20311, 13.1);
+		GPSLog tracks = new GPSLog("3289712368", 1, 1407717254, 47.66588,
+				9.20311, 0.2);
 		GPSLog.create(tracks);
-		GPSLog trackd = new GPSLog("3289712368", 1, 1405031655, 47.66679,
-				9.20650, 13.1);
+		GPSLog trackd = new GPSLog("3289712368", 1, 1407717255, 47.66684,
+				9.20650, 0.2);
 		GPSLog.create(trackd);
-		GPSLog trackf = new GPSLog("3289712368", 1, 1405031656, 47.66714,
-				9.21148, 13.1);
+		GPSLog trackf = new GPSLog("3289712368", 1, 1407717256, 47.66722,
+				9.21148, 0.2);
 		GPSLog.create(trackf);
-		GPSLog trackg = new GPSLog("3289712368", 0, 1405031657, 47.66679,
-				9.21551, 13.1);
+		GPSLog trackg = new GPSLog("3289712368", 0, 1407717257, 47.66681,
+				9.21551, 0.2);
 		GPSLog.create(trackg);
-		GPSLog trackh = new GPSLog("3289712368", 0, 1405031658, 47.66604,
-				9.21770, 13.1);
+		GPSLog trackh = new GPSLog("3289712368", 0, 1407717258, 47.66609,
+				9.21770, 0.2);
 		GPSLog.create(trackh);
-		GPSLog trackj = new GPSLog("3289712368", 3, 1405031659, 47.66414,
-				9.22886, 13.1);
+		GPSLog trackj = new GPSLog("3289712368", 3, 1407717259, 47.66419,
+				9.22886, 0.2);
 		GPSLog.create(trackj);
-		GPSLog trackk = new GPSLog("3289712368", 3, 1405031660, 47.66197,
-				9.25598, 13.1);
+		GPSLog trackk = new GPSLog("3289712368", 3, 1407717260, 47.66203,
+				9.25598, 0.2);
 		GPSLog.create(trackk);
-		GPSLog trackq = new GPSLog("3289712368", 3, 1405031661, 47.65966,
-				9.27864, 13.1);
+		GPSLog trackq = new GPSLog("3289712368", 3, 1407717261, 47.65972,
+				9.27864, 0.2);
 		GPSLog.create(trackq);
-		GPSLog trackw = new GPSLog("3289712368", 3, 1405031662, 47.65688,
-				9.30130, 13.1);
+		GPSLog trackw = new GPSLog("3289712368", 3, 1407717262, 47.65694,
+				9.30130, 0.2);
 		GPSLog.create(trackw);
-		GPSLog tracky = new GPSLog("3289712368", 3, 1405031663, 47.65596,
-				9.32877, 13.1);
+		GPSLog tracky = new GPSLog("3289712368", 3, 1407717263, 47.65601,
+				9.32877, 0.2);
 		GPSLog.create(tracky);
-		GPSLog trackx = new GPSLog("3289712368", 3, 1405031664, 47.65318,
-				9.35211, 13.1);
+		GPSLog trackx = new GPSLog("3289712368", 3, 1407717264, 47.65323,
+				9.35211, 0.2);
 		GPSLog.create(trackx);
-		GPSLog trackc = new GPSLog("3289712368", 3, 1405031665, 47.65272,
-				9.37683, 13.1);
+		GPSLog trackc = new GPSLog("3289712368", 3, 1407717265, 47.65277,
+				9.37683, 0.2);
 		GPSLog.create(trackc);
-		GPSLog trackv = new GPSLog("3289712368", 3, 1405031666, 47.64856,
-				9.42009, 13.1);
+		GPSLog trackv = new GPSLog("3289712368", 3, 1407717266, 47.64859,
+				9.42009, 0.2);
 		GPSLog.create(trackv);
-		GPSLog trackb = new GPSLog("3289712368", 3, 1405031667, 47.64763,
-				9.45305, 13.1);
+		GPSLog trackb = new GPSLog("3289712368", 3, 1407717267, 47.64765,
+				9.45305, 0.2);
 		GPSLog.create(trackb);
-		GPSLog trackn = new GPSLog("3289712368", 3, 1405031668, 47.64763,
-				9.47708, 13.1);
+		GPSLog trackn = new GPSLog("3289712368", 3, 1407717268, 47.64769,
+				9.47708, 0.2);
 		GPSLog.create(trackn);
-		GPSLog trackm = new GPSLog("3289712368", 3, 1405031669, 47.64987,
-				9.48395, 13.1);
+		GPSLog trackm = new GPSLog("3289712368", 3, 1407717269, 47.64993,
+				9.48395, 0.2);
 		GPSLog.create(trackm);
 
 		Function.withTrack();
@@ -290,9 +293,7 @@ public class Application extends Controller {
 	 */
 	public static Result deleteRating(String id) {
 		Function.deleteRating(id);
-		List<GPSLog> test = null;
-		return ok(views.html.user
-				.render(Function.withTrack(), stringForm, test)); // ,
+		return ok(views.html.user.render(Function.withTrack())); // ,
 																	// GeoCenter.getCenter(GPSLog.all())
 	}
 
@@ -325,11 +326,11 @@ public class Application extends Controller {
 	 *         criteria
 	 */
 	public static Result filter() {
-		
-		Form<String> filterOptions = stringForm.bindFromRequest();
-		List<User> userlist = Function.multiFilter(filterOptions);
-		List<GPSLog> gpslog = Function.gpsfilter(userlist, filterOptions);
-		return ok(views.html.user.render(userlist, stringForm, gpslog));
+		List<User> userlist = Function.multiFilter(request());
+		for (int i = 0; i < userlist.size(); i++) {
+			search(userlist.get(i).userid);
+		}
+		return ok(views.html.user.render(Function.multiFilter(request())));
 
 	}
 
@@ -399,15 +400,49 @@ public class Application extends Controller {
 	}
 
 	public static Result getRout(String userid) {
-		System.out.print(request().queryString());
+		// System.out.print(request().queryString());
 		return ok(Json.toJson(GeoCenter.getCenter(Function.singelUser(userid))));
 
 	}
-	
-	public static Result search() {
-		System.out.print(request().queryString());
-		return ok(Json.toJson(request().queryString()));
+
+	public static Result search(String userid) {
+		// System.out.print(request());
+		return ok(Json.toJson(Function.gpsfilter(userid, request())));
 
 	}
+
+	// private static List<User> getUsers(Request test) {
+	// BasicDBObject searchQuery = new BasicDBObject();
+	// List<String> userValuesString = Arrays.asList(new String[] { "email",
+	// "zipcode", "country", "date1", "date2" });
+	// List<String> userValuesInt = Arrays.asList(new String[] { "year1",
+	// "year2" });
+	// List<String> userValuesBool = Arrays.asList(new String[] { "gender",
+	// "returner" });
+	//
+	// for (String entry : userValuesString) {
+	// String value = test.getQueryString(entry);
+	// if (value != null) {
+	// searchQuery.put(entry, value);
+	// }
+	//
+	// }
+	// for (String entry : userValuesInt) {
+	// String value = test.getQueryString(entry);
+	// if (value != null) {
+	// searchQuery.put(entry, Integer.parseInt(value));
+	// }
+	//
+	// }
+	// for (String entry : userValuesBool) {
+	// String value = test.getQueryString(entry);
+	// if (value != null) {
+	// searchQuery.put(entry, Boolean.parseBoolean(value));
+	// }
+	//
+	// }
+	// return User.coll.find(searchQuery).toArray();
+	//
+	// }
 
 }

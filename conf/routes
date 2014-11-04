@@ -36,5 +36,5 @@ POST    /addJGPSlog      		 		controllers.Application.jsonTracking()
 
 GET     /filter			     			controllers.Application.filter()
 
-GET		/search							controllers.Application.search()
+GET		/search/:userid/getRout			controllers.Application.search(userid: String)
 

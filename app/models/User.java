@@ -99,4 +99,5 @@ public class User {
 	public static List<User> displayAll() {
 		return User.coll.find().limit(1000).toArray();
 	}
+	
 }
