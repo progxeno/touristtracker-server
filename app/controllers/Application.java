@@ -33,10 +33,10 @@ public class Application extends Controller {
 	}
 
 	public static Result newUser() {
-
+		String date = "";
 		User user = new User("3289712368", "Rout@Test.de", 1991, "64285", "D",
 				true, false);
-		User.create(user);
+		User.create(user, date);
 
 		// User user2 = new User("456abc", "Tourist2@tracking.de", 1988,
 		// "78462", "I", true, false);
@@ -207,7 +207,7 @@ public class Application extends Controller {
 	public static Result jsonUser() {
 
 		JsonNode jUser = request().body().asJson();
-
+		String date = "";
 		if (jUser == null) {
 
 			return ok("Wrong Message! addUser  Json == null");
@@ -216,7 +216,7 @@ public class Application extends Controller {
 
 			User user = Json.fromJson(jUser, User.class);
 
-			User.create(user);
+			User.create(user, date);
 			return ok(JSON_PARSE_OK);
 		}
 
@@ -406,7 +406,7 @@ public class Application extends Controller {
 	}
 
 	public static Result search(String userid) {
-		// System.out.print(request());
+		System.out.print(request());
 		return ok(Json.toJson(Function.gpsfilter(userid, request())));
 
 	}

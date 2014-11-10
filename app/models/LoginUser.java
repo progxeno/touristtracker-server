@@ -64,10 +64,5 @@ public class LoginUser {
 			return false;
 	}
 
-	public static void myUserUpdate(User user) {
-
-		User.coll.removeById(user.id);
-		User.create(user);
-	}
 
 }

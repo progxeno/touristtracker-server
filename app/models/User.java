@@ -47,6 +47,7 @@ public class User {
 
 	public User(String userid, String email, int year, String zipcode,
 			String country, boolean gender, boolean returner) {
+		
 		this.userid = userid;
 		this.email = email;
 		this.year = year;
@@ -61,7 +62,7 @@ public class User {
 
 	}
 
-	public static void create(User user) {
+	public static void create(User user, String dateFrom) {
 
 		int isizeUser = User.coll.find().size();
 		boolean bNewUser = true;
@@ -74,11 +75,15 @@ public class User {
 				}
 			}
 
-		if (bNewUser) {
+		if (bNewUser && !dateFrom.equals("")) {
 			Date date = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			sdf.setTimeZone(TimeZone.getTimeZone("GMT+1"));
 			user.dateFrom = sdf.format(date);
+			User.coll.save(user);
+		}
+		else {
+			user.dateFrom = dateFrom;
 			User.coll.save(user);
 		}
 	}
@@ -92,8 +97,9 @@ public class User {
 	 */
 	public static void myUserUpdate(User user) {
 
+		String dateFrom = user.dateFrom;
 		User.coll.removeById(user.id);
-		User.create(user);
+		User.create(user, dateFrom);
 	}
 
 	public static List<User> displayAll() {

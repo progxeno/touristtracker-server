@@ -569,15 +569,15 @@ public class Function {
 		String foundDate2 = filterOptions.getQueryString("dateTo");
 		List<GPSLog> filtertLogs = new ArrayList<GPSLog>();
 
-		System.out.print(filterOptions.getQueryString("vehicle"));
+		//System.out.print(filterOptions.getQueryString("vehicle"));
 
 		if (filterOptions.getQueryString(foundDate1) == "dateFrom") {
-			System.out.print("date");
+			//System.out.print("date");
 			// searchQuery.put("userid", userid);
 
 			if (filterOptions.queryString().containsKey("vehicle")) {
 
-				System.out.print("vehicle");
+				//System.out.print("vehicle");
 				if (filterOptions.getQueryString("vehicle").equalsIgnoreCase(
 						"0")) {
 					searchQuery.put("vehicle", 0);
