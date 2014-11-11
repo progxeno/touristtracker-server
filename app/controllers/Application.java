@@ -420,9 +420,14 @@ public class Application extends Controller {
 	
 	public static Result download(){
 		
+		return ok(views.html.download.render());
+	}
+	
+	public static Result downloadAPK(){
+		
 		response().setContentType("application/x-download");
 		response().setHeader("Content-disposition", "attachment: filename=app-debug.apk");
 		
-		return ok(new File("/Users/miosko/Desktop/AIT7/App/TrackingApp final/app/build/outputs/apk/app-debug.apk"));
+		return ok(new File("/Users/miosko/Desktop/AIT 7/App/TrackingApp final/app/build/outputs/apk/app-debug.apk"));
 	}
 }
