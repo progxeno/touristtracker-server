@@ -35,7 +35,7 @@ public class Application extends Controller {
 	public static Result newUser() {
 		String date = "";
 		User user = new User("3289712368", "Rout@Test.de", 1991, "64285", "D",
-				true, false);
+				true, false, "14", "Lenovo", "Yoga 10");
 		User.create(user, date);
 
 		// User user2 = new User("456abc", "Tourist2@tracking.de", 1988,
@@ -207,7 +207,7 @@ public class Application extends Controller {
 	public static Result jsonUser() {
 
 		JsonNode jUser = request().body().asJson();
-		String date = "";
+		String date = "newUser";
 		if (jUser == null) {
 
 			return ok("Wrong Message! addUser  Json == null");
@@ -215,7 +215,6 @@ public class Application extends Controller {
 		} else {
 
 			User user = Json.fromJson(jUser, User.class);
-
 			User.create(user, date);
 			return ok(JSON_PARSE_OK);
 		}
@@ -293,8 +292,7 @@ public class Application extends Controller {
 	 */
 	public static Result deleteRating(String id) {
 		Function.deleteRating(id);
-		return ok(views.html.user.render(Function.withTrack())); // ,
-																	// GeoCenter.getCenter(GPSLog.all())
+		return ok(views.html.user.render(Function.withTrack()));
 	}
 
 	/**

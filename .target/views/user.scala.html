@@ -125,61 +125,61 @@
                   @form(routes.Application.filter()) {
                   <br/> 
                   <input type="text" name = "email">E-Mail<br> 
-        
-        				<div style = "float:left; width:49%">
-        				<br/>
-                        <input type="text" name = "yearFrom">Year From<br>
-                        </div>
-						<div style = "float:left; width:49%">
-						<br/>
-                        <input type="text" name = "yearTo">Year To<br>
-						</div>
-						<div style = "float:left; width:49%">
-						<br/>
-                        <input type="date" name = "dateFrom">Date From<br>
+                  <div style = "float:left; width:49%">
+                     <br/>
+                     <input type="text" name = "yearFrom">Year From<br>
                   </div>
                   <div style = "float:left; width:49%">
+                     <br/>
+                     <input type="text" name = "yearTo">Year To<br>
+                  </div>
+                  <div style = "float:left; width:49%">
+                     <br/>
+                     <input type="date" name = "dateFrom">Date From<br>
+                  </div>
+                  <div style = "float:left; width:49%">
+                     <br/>
+                     <input type="date" name = "dateTo">Date To<br>
+                  </div>
+                  <div style = "float:left; width:49%">
+                     <br/>
+                     <input type="text" name = "country">Country<br>
+                  </div>
+                  <div style = "float:left; width:49%">
+                     <br/>
+                     <input type="text" name = "zipcode">Zipcode<br>
+                  </div>
+                  <dt><label>Select</label></dt>
+                  <div  style = " float:left; width:25%">
+                     <input type="checkbox" name = "gender" value = "male">Male<br>
+                  </div>
+                  <div  style = " float:left; width:25%">
+                     <input type="checkbox" name = "gender" value = "female">Female<br>
+                  </div>
+                  <div  style = " float:left; width:25%">
+                     <input type="checkbox" name = "returner" value = "yes">Returner<br>
+                  </div>
                   <br/>
-                        <input type="date" name = "dateTo">Date To<br>
-                   </div>
-                   <div style = "float:left; width:49%">
-                   <br/>
-                        <input type="text" name = "country">Country<br>
-                   </div>
-                   <div style = "float:left; width:49%">
-                   <br/>
-                        <input type="text" name = "zipcode">Zipcode<br>
-                     </div>
-                     <dt><label>Select</label></dt>
                   
-                  	<div  style = " float:left; width:25%">
-                           <input type="checkbox" name = "gender" value = "male">Male<br>
-                   </div>
-                   <div  style = " float:left; width:25%">
-                           <input type="checkbox" name = "gender" value = "female">Female<br>
-                        </div>
-                        <div  style = " float:left; width:25%">
-                           <input type="checkbox" name = "returner" value = "yes">Returner<br>
-                </div>
-                 <br/>
-                     <dt><label>Select Vehicle</label></dt>
-                     <div style = "margin:0 auto">
-                        <div  style = " float:left; width:25%">
+                  <dt><label>Select Vehicle</label></dt>
+                  <div style = "margin:0 auto">
+                     <div  style = " float:left; width:25%">
                         <input type="checkbox" name = "vehicle" value = "1">Car<br>
-                           
-                        </div>
-                        <div style = "float:left; width:25%">
-                           <input type="checkbox" name = "vehicle" value = "0">Foot/Bike<br>
-                        </div>
-                        <div style = "float:left; width:25%"> 	  	
-                          <input type="checkbox" name = "vehicle" value = "3">Ferry<br>
-                        </div>
-                        <div style = "float:left; width:25%"> 	  	
-                           <input type="checkbox" name = "vehicle" value = "2">Bus/Train<br>
-                        </div>
                      </div>
-                     <input type="submit" value="Filter" style = "float:left; width:40%" >
-                     }
+                     <div style = "float:left; width:25%">
+                        <input type="checkbox" name = "vehicle" value = "0">Foot/Bike<br>
+                     </div>
+                     <div style = "float:left; width:25%"> 	  	
+                        <input type="checkbox" name = "vehicle" value = "3">Ferry<br>
+                     </div>
+                     <div style = "float:left; width:25%"> 	  	
+                        <input type="checkbox" name = "vehicle" value = "2">Bus/Train<br>
+                     </div>
+                  </div>
+                  
+                  <input type="submit" value="Filter" style = "float:left; width:40%" >
+                  }
+                  
 </ul>
 </div>
 </div>
@@ -197,173 +197,173 @@
 </div>
 </div>
 <div class="panel panel-default" style = "width:49%; float:right; height: 443px;">
-<head>
-<meta charset="utf-8"/>
-<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-</head>
-<body>
-<div id="pos" style="width:100%; height: 100%;">
-</div>
-<script>
-   function initialize() {
-   var mapOptions = {
-     center: new google.maps.LatLng(47.6604704, 9.171972),
-     zoom: 10,
-     mapTypeId: google.maps.MapTypeId.ROADMAP
-   };
-   
-   var map = new google.maps.Map(document.getElementById("pos"),
-       mapOptions);
-       
-       
-     
-   $(document).ready(function(){
-   @for(user <- users) {
-   
-   
-   // add loading image to div
-   $('#pleaseWaitDialog');
-      // run ajax request
-   $.ajax({
-     type: "GET",
-     dataType: "json",
-     url: "/search/@user.userid/getRout",
-     success: function (filterRout) {
-   
-   
-   var json = JSON.parse(filterRout);
-            var userMap = [];
-            var RoutCounter = 0;
-            var timestamp = json[0].timestamp;
-            var j =0;
-     				for (var i = 0; i < json.length; i++) {
-     				
-     			
-     					
-			    		var f=[];
-   		  				var c=[];
-   		  				var b=[];
-   		  				var s=[];
-	  		
-     	  if(json[i].vehicle == 0) {
-   
-   			if(i>=1 && j==0){
-     	  			f.push(new google.maps.LatLng(json[i-1].latitude, json[i-1].longitude));
-     	  		}
-   				f.push(new google.maps.LatLng(json[i].latitude, json[i].longitude));
-   		};
-   	
-   	var footBike = new google.maps.Polyline({       
-       path: f,
-       geodesic: true,
-       // BLUE    
-       strokeColor: '#008000',
-       strokeOpacity: 1.0,
-       strokeWeight: 1
-     });
-   
-     userMap[RoutCounter] = new google.maps.Polyline(footBike);
-     userMap[RoutCounter].setMap(map);				  
-   	
-   	// BLACK 
-     	  if(json[i].vehicle == 1) { 
-     	  		if(i>=1 && j==0){
-     	  			c.push(new google.maps.LatLng(json[i-1].latitude, json[i-1].longitude));
-     	  		}
-   				c.push(new google.maps.LatLng(json[i].latitude, json[i].longitude));
-   	};
-   	
-   	var car = new google.maps.Polyline({
-       path: c,
-       geodesic: true,
-       // BLACK     
-       strokeColor: '#FF0000',
-       strokeOpacity: 1.0,
-       strokeWeight: 1
-     });
-   	
-     userMap[RoutCounter] = new google.maps.Polyline(car);
-     userMap[RoutCounter].setMap(map);
-    
-   
-   	
-   	// GREEN  
-     	  if(json[i].vehicle == 2) { 
-     	  		if(i>=1 && j==0){
-     	  			b.push(new google.maps.LatLng(json[i-1].latitude, json[i-1].longitude));
-     	  		}
-   				b.push(new google.maps.LatLng(json[i].latitude, json[i].longitude));
-   	};
-   	var busTrain = new google.maps.Polyline({
-       path: b,
-       geodesic: true,
-       // GREEN
-       strokeColor: '#FFFF00',
-       strokeOpacity: 1.0,
-       strokeWeight: 1
-     });
-   
-     userMap = new google.maps.Polyline(busTrain);
-     userMap.setMap(map);
-     
-   	// RED  
-     	  if(json[i].vehicle == 3) {
-     	  		if(i>=1 && j==0){
-     	  			s.push(new google.maps.LatLng(json[i-1].latitude, json[i-1].longitude));
-     	  		}
-   				s.push(new google.maps.LatLng(json[i].latitude, json[i].longitude));
-   	};
-     var ferry = new google.maps.Polyline({
-       path: s,
-       geodesic: true,
-       // RED     
-       strokeColor: '#FFA500',
-       strokeOpacity: 1.0,
-       strokeWeight: 1
-     });
-     
-     
-     userMap[RoutCounter] = new google.maps.Polyline(ferry);
-     userMap[RoutCounter].setMap(map);
-     
-     if(i < json.length-1){
-     			var date1 = new Date(timestamp*1000);
-     			var date2 = new Date(json[i+1].timestamp*1000);
-     			date1.setHours(0,0,0,0)
-     			date2.setHours(0,0,0,0)
-     			
-     			
-     			if(date1.getTime() != date2.getTime()){
-     	  			timestamp = json[i+1].timestamp;
-     	  			RoutCounter++;
-     	  			j = 1;
-     	  			
-     	  		}else{
-     	  		j=0;
-     	  		}//end if date compare
-     			}//end if json has next
-     					
-   }//end for
-   }//end FilterFunction
-     });//end Filter $.ajax
-   };//end for(user <- users) 
-   
-   });//end $(document).ready(function()
-   
-   
-   
-   
-       
-       
-   };//end initialize();
-   
-       initialize();
-   
-   
+   <head>
+      <meta charset="utf-8"/>
+      <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+   </head>
+   <body>
+      <div id="pos" style="width:100%; height: 100%;"></div>
+      <script>
+         function initialize() {
+         var mapOptions = {
+           center: new google.maps.LatLng(47.6604704, 9.171972),
+           zoom: 10,
+           mapTypeId: google.maps.MapTypeId.ROADMAP
+         };
+         
+         var map = new google.maps.Map(document.getElementById("pos"),
+             mapOptions);
+             
+             
            
-   
-</script>
-</body>
+         $(document).ready(function(){
+         @for(user <- users) {
+         
+         
+         // add loading image to div
+         $('#pleaseWaitDialog');
+            // run ajax request
+         $.ajax({
+           type: "GET",
+           dataType: "json",
+           url: "/search/@user.userid/getRout",
+           success: function (filterRout) {
+         
+         
+         var json = JSON.parse(filterRout);
+                  var userMap = [];
+                  var RoutCounter = 0;
+                  var timestamp = json[0].timestamp;
+                  var j =0;
+           				for (var i = 0; i < json.length; i++) {
+           				
+           			
+           					
+             		var f=[];
+         		  	var c=[];
+         			var b=[];
+         			var s=[];
+         		
+           	  if(json[i].vehicle == 0) {
+         
+         			if(i>=1 && j==0){
+           	  			f.push(new google.maps.LatLng(json[i-1].latitude, json[i-1].longitude));
+           	  		}
+         				f.push(new google.maps.LatLng(json[i].latitude, json[i].longitude));
+         		};
+         	
+         	var footBike = new google.maps.Polyline({       
+             path: f,
+             geodesic: true,
+             // BLUE    
+             strokeColor: '#008000',
+             strokeOpacity: 1.0,
+             strokeWeight: 2
+           });
+         
+           userMap[RoutCounter] = new google.maps.Polyline(footBike);
+           userMap[RoutCounter].setMap(map);				  
+         	
+         	// BLACK 
+           	  if(json[i].vehicle == 1) { 
+           	  		if(i>=1 && j==0){
+           	  			c.push(new google.maps.LatLng(json[i-1].latitude, json[i-1].longitude));
+           	  		}
+         				c.push(new google.maps.LatLng(json[i].latitude, json[i].longitude));
+         	};
+         	
+         	var car = new google.maps.Polyline({
+             path: c,
+             geodesic: true,
+             // BLACK     
+             strokeColor: '#FF0000',
+             strokeOpacity: 1.0,
+             strokeWeight: 2
+           });
+         	
+           userMap[RoutCounter] = new google.maps.Polyline(car);
+           userMap[RoutCounter].setMap(map);
+          
+         
+         	
+         	// GREEN  
+           	  if(json[i].vehicle == 2) { 
+           	  		if(i>=1 && j==0){
+           	  			b.push(new google.maps.LatLng(json[i-1].latitude, json[i-1].longitude));
+           	  		}
+         				b.push(new google.maps.LatLng(json[i].latitude, json[i].longitude));
+         	};
+         	var busTrain = new google.maps.Polyline({
+             path: b,
+             geodesic: true,
+             // GREEN
+             strokeColor: '#FFFF00',
+             strokeOpacity: 1.0,
+             strokeWeight: 2
+           });
+         
+           userMap = new google.maps.Polyline(busTrain);
+           userMap.setMap(map);
+           
+         	// RED  
+           	  if(json[i].vehicle == 3) {
+           	  		if(i>=1 && j==0){
+           	  			s.push(new google.maps.LatLng(json[i-1].latitude, json[i-1].longitude));
+           	  		}
+         				s.push(new google.maps.LatLng(json[i].latitude, json[i].longitude));
+         	};
+           var ferry = new google.maps.Polyline({
+             path: s,
+             geodesic: true,
+             // RED     
+             strokeColor: '#FFA500',
+             strokeOpacity: 1.0,
+             strokeWeight: 2
+           });
+           
+           
+           userMap[RoutCounter] = new google.maps.Polyline(ferry);
+           userMap[RoutCounter].setMap(map);
+           
+           if(i < json.length-1){
+           			var date1 = new Date(timestamp*1000);
+           			var date2 = new Date(json[i+1].timestamp*1000);
+           			date1.setHours(0,0,0,0)
+           			date2.setHours(0,0,0,0)
+           			
+           			
+           			if(date1.getTime() != date2.getTime()){
+           	  			timestamp = json[i+1].timestamp;
+           	  			RoutCounter++;
+           	  			j = 1;
+           	  			
+           	  		}else{
+           	  		j=0;
+           	  		}//end if date compare
+           			}//end if json has next
+           					
+         }//end for
+         }//end FilterFunction
+           });//end Filter $.ajax
+         };//end for(user <- users) 
+         
+         });//end $(document).ready(function()
+         
+         
+         
+         
+             
+             
+         };//end initialize();
+         
+             initialize();
+             //window.location = "/Distance/3289712368/singledistance";
+         
+         
+                 
+         
+      </script>
+   </body>
 </div>
 </div>
 </ul>

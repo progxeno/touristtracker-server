@@ -26,6 +26,9 @@ public class User {
 	public String country;
 	public boolean gender;
 	public boolean returner;
+	public String version;
+	public String manufacturer;
+	public String model;
 
 	@JsonIgnore
 	public String dateFrom;
@@ -46,7 +49,7 @@ public class User {
 			.getCollection("Tourists", User.class, String.class);
 
 	public User(String userid, String email, int year, String zipcode,
-			String country, boolean gender, boolean returner) {
+			String country, boolean gender, boolean returner, String version, String manufacturer, String model) {
 		
 		this.userid = userid;
 		this.email = email;
@@ -55,6 +58,9 @@ public class User {
 		this.country = country;
 		this.gender = gender;
 		this.returner = returner;
+		this.version = version;
+		this.manufacturer = manufacturer;
+		this.model = model;
 
 	}
 
@@ -69,13 +75,14 @@ public class User {
 		List<User> Luser = User.coll.find().toArray();
 		if (user != null)
 
+			//TODO: check entry
 			for (int i = 0; isizeUser > i; i++) {
 				if (user.userid.equals(Luser.get(i).userid)) {
 					bNewUser = false;
 				}
 			}
 
-		if (bNewUser && !dateFrom.equals("")) {
+		if (bNewUser && dateFrom.contains("newUser")) {
 			Date date = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			sdf.setTimeZone(TimeZone.getTimeZone("GMT+1"));
