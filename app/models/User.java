@@ -29,7 +29,7 @@ public class User {
 	public String version;
 	public String manufacturer;
 	public String model;
-
+	public String screenSize;
 	@JsonIgnore
 	public String dateFrom;
 	@JsonIgnore
@@ -49,8 +49,9 @@ public class User {
 			.getCollection("Tourists", User.class, String.class);
 
 	public User(String userid, String email, int year, String zipcode,
-			String country, boolean gender, boolean returner, String version, String manufacturer, String model) {
-		
+			String country, boolean gender, boolean returner, String version,
+			String manufacturer, String model, String screenSize) {
+
 		this.userid = userid;
 		this.email = email;
 		this.year = year;
@@ -61,6 +62,7 @@ public class User {
 		this.version = version;
 		this.manufacturer = manufacturer;
 		this.model = model;
+		this.screenSize = screenSize;
 
 	}
 
@@ -75,7 +77,7 @@ public class User {
 		List<User> Luser = User.coll.find().toArray();
 		if (user != null)
 
-			//TODO: check entry
+			// TODO: check entry
 			for (int i = 0; isizeUser > i; i++) {
 				if (user.userid.equals(Luser.get(i).userid)) {
 					bNewUser = false;
@@ -88,18 +90,17 @@ public class User {
 			sdf.setTimeZone(TimeZone.getTimeZone("GMT+1"));
 			user.dateFrom = sdf.format(date);
 			User.coll.save(user);
-		}
-		else {
+		} else {
 			user.dateFrom = dateFrom;
 			User.coll.save(user);
 		}
 	}
 
 	/**
-	 * Updates the given Tourist by deleting the existing Tourist with the same userid
-	 * and adds him new to the Database.
-	 * I´ve implemented this because the "update()" Function of the jacksondriver didn´t work
-	 * correct.
+	 * Updates the given Tourist by deleting the existing Tourist with the same
+	 * userid and adds him new to the Database. I´ve implemented this because
+	 * the "update()" Function of the jacksondriver didn´t work correct.
+	 * 
 	 * @param user
 	 */
 	public static void myUserUpdate(User user) {
@@ -112,5 +113,5 @@ public class User {
 	public static List<User> displayAll() {
 		return User.coll.find().limit(1000).toArray();
 	}
-	
+
 }
