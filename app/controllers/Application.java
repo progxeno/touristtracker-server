@@ -1,9 +1,7 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.File;
 import java.util.List;
-import java.util.Map;
 
 import models.Function;
 import models.GPSLog;
@@ -14,12 +12,11 @@ import models.UserRating;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
-import play.mvc.Http.Request;
 import play.mvc.Result;
 import play.mvc.Security;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.mongodb.BasicDBObject;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class Application extends Controller {
 	static Form<String> stringForm = Form.form(String.class);
@@ -398,7 +395,6 @@ public class Application extends Controller {
 	}
 
 	public static Result getRout(String userid) {
-		// System.out.print(request().queryString());
 		return ok(Json.toJson(GeoCenter.getCenter(Function.singelUser(userid))));
 
 	}
@@ -409,38 +405,24 @@ public class Application extends Controller {
 
 	}
 
-	// private static List<User> getUsers(Request test) {
-	// BasicDBObject searchQuery = new BasicDBObject();
-	// List<String> userValuesString = Arrays.asList(new String[] { "email",
-	// "zipcode", "country", "date1", "date2" });
-	// List<String> userValuesInt = Arrays.asList(new String[] { "year1",
-	// "year2" });
-	// List<String> userValuesBool = Arrays.asList(new String[] { "gender",
-	// "returner" });
-	//
-	// for (String entry : userValuesString) {
-	// String value = test.getQueryString(entry);
-	// if (value != null) {
-	// searchQuery.put(entry, value);
-	// }
-	//
-	// }
-	// for (String entry : userValuesInt) {
-	// String value = test.getQueryString(entry);
-	// if (value != null) {
-	// searchQuery.put(entry, Integer.parseInt(value));
-	// }
-	//
-	// }
-	// for (String entry : userValuesBool) {
-	// String value = test.getQueryString(entry);
-	// if (value != null) {
-	// searchQuery.put(entry, Boolean.parseBoolean(value));
-	// }
-	//
-	// }
-	// return User.coll.find(searchQuery).toArray();
-	//
-	// }
-
+	public static Result release() {
+		
+		double version = 1.0;
+		int release = 1;
+		ObjectNode jsonObject = Json.newObject();
+		
+		jsonObject.put("version", version);
+		jsonObject.put("release", release);
+		
+		return ok(jsonObject);
+	}
+	
+	
+	public static Result download(){
+		
+		response().setContentType("application/x-download");
+		response().setHeader("Content-disposition", "attachment: filename=app-debug.apk");
+		
+		return ok(new File("/Users/miosko/Desktop/AIT7/App/TrackingApp final/app/build/outputs/apk/app-debug.apk"));
+	}
 }

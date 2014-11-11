@@ -38,3 +38,6 @@ GET     /filter			     			controllers.Application.filter()
 
 GET		/search/:userid/getRout			controllers.Application.search(userid: String)
 
+GET 	/release						controllers.Application.release()
+GET 	/download						controllers.Application.download()
+
