@@ -35,7 +35,7 @@ public class Application extends Controller {
 	public static Result newUser() {
 		String date = "";
 		User user = new User("3289712368", "Rout@Test.de", 1991, "64285", "D",
-				true, false, "14", "Lenovo", "Yoga 10", "400x800");
+				true, false, "14", "Lenovo", "Yoga 10", 5);
 		User.create(user, date);
 
 		// User user2 = new User("456abc", "Tourist2@tracking.de", 1988,

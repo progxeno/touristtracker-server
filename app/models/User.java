@@ -29,7 +29,8 @@ public class User {
 	public String version;
 	public String manufacturer;
 	public String model;
-	public String screenSize;
+	public int screenSize;
+	
 	@JsonIgnore
 	public String dateFrom;
 	@JsonIgnore
@@ -50,7 +51,7 @@ public class User {
 
 	public User(String userid, String email, int year, String zipcode,
 			String country, boolean gender, boolean returner, String version,
-			String manufacturer, String model, String screenSize) {
+			String manufacturer, String model, int screenSize) {
 
 		this.userid = userid;
 		this.email = email;
