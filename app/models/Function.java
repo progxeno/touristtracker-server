@@ -6,12 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
-import play.libs.Json;
 import net.vz.mongodb.jackson.DBCursor;
-import play.data.Form;
+import play.libs.Json;
 import play.mvc.Http.Request;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.mongodb.BasicDBObject;
 
 public class Function {

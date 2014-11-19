@@ -33,6 +33,7 @@ POST    /addRating/:id/delete       	controllers.Application.deleteRating(id: St
 POST    /addJUser       				controllers.Application.jsonUser()
 POST    /addJUserRating   		    	controllers.Application.jsonRating()
 POST    /addJGPSlog      		 		controllers.Application.jsonTracking()
+POST	/reportcrash					controllers.Application.crashReport()
 
 GET     /filter			     			controllers.Application.filter()
 
@@ -40,5 +41,5 @@ GET		/search/:userid/getRout			controllers.Application.search(userid: String)
 
 GET 	/release						controllers.Application.release()
 GET 	/download						controllers.Application.download()
-GET 	/download/apk						controllers.Application.downloadAPK()
+GET 	/download/apk					controllers.Application.downloadAPK()
 

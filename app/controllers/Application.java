@@ -3,6 +3,7 @@ package controllers;
 import java.io.File;
 import java.util.List;
 
+import models.CrashReport;
 import models.Function;
 import models.GPSLog;
 import models.GeoCenter;
@@ -26,11 +27,11 @@ public class Application extends Controller {
 	@Security.Authenticated(Secured.class)
 	public static Result index() {
 
-		return ok(views.html.user.render(User.displayAll())); // GeoCenter.getCenter(GPSLog.all())
+		return ok(views.html.user.render(User.displayAll()));
 	}
 
 	public static Result newUser() {
-		String date = "";
+		String date = "newUser";
 		User user = new User("3289712368", "Rout@Test.de", 1991, "64285", "D",
 				true, false, "14", "Lenovo", "Yoga 10", "400x800");
 		User.create(user, date);
@@ -217,6 +218,7 @@ public class Application extends Controller {
 		}
 
 	}
+	
 
 	/**
 	 * Checks the HTTP request and convert it into an Array of Json Nodes. The
@@ -265,6 +267,23 @@ public class Application extends Controller {
 				UserRating.create(rating);
 			}
 
+			return ok(JSON_PARSE_OK);
+		}
+
+	}
+	
+	
+	public static Result crashReport() {
+		JsonNode report = request().body().asJson();
+		
+		if (report == null) {
+
+			return ok("Wrong Message! CrashReport  Json == null");
+
+		} else {
+
+			CrashReport user = Json.fromJson(report, CrashReport.class);
+			CrashReport.create(user);
 			return ok(JSON_PARSE_OK);
 		}
 
@@ -425,9 +444,6 @@ public class Application extends Controller {
 	
 	public static Result downloadAPK(){
 		
-		response().setContentType("application/x-download");
-		response().setHeader("Content-disposition", "attachment: filename=app-debug.apk");
-		
-		return ok(new File("/Users/miosko/Desktop/AIT 7/App/TrackingApp final/app/build/outputs/apk/app-debug.apk"));
+		return ok(new File("/Users/miosko/Desktop/AIT6/SW-P/App/testApp/AppRelease/app-debug.apk"));
 	}
 }
