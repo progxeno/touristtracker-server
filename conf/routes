@@ -28,6 +28,7 @@ GET     /Distance/:id/singledistance	controllers.Application.displayDistance(id:
 
 POST    /user/:id/delete       			controllers.Application.delete(id: String)
 POST    /addRating/:id/delete       	controllers.Application.deleteRating(id: String)
+POST    /CrashLog/:id/delete       		controllers.Application.deleteCrashLog(id: String)
 
 
 POST    /addJUser       				controllers.Application.jsonUser()
@@ -42,4 +43,7 @@ GET		/search/:userid/getRout			controllers.Application.search(userid: String)
 GET 	/release						controllers.Application.release()
 GET 	/download						controllers.Application.download()
 GET 	/download/apk					controllers.Application.downloadAPK()
+
+GET 	/display/crashlogs				controllers.Application.displayCrash()
+GET 	/display/userinfo				controllers.Application.displayUserInformations()
 

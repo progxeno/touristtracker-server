@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.File;
-import java.util.List;
 
 import models.CrashReport;
 import models.Function;
@@ -31,10 +30,10 @@ public class Application extends Controller {
 	}
 
 	public static Result newUser() {
-		String date = "newUser";
-		User user = new User("3289712368", "Rout@Test.de", 1991, "64285", "D",
-				true, false, "14", "Lenovo", "Yoga 10", "400x800");
-		User.create(user, date);
+//		String date = "newUser";
+//		User user = new User("3289712368", "Rout@Test.de", 1991, "64285", "D",
+//				true, false, "14", "Lenovo", "Yoga 10", "400x800");
+//		User.create(user, date);
 
 		// User user2 = new User("456abc", "Tourist2@tracking.de", 1988,
 		// "78462", "I", true, false);
@@ -218,7 +217,6 @@ public class Application extends Controller {
 		}
 
 	}
-	
 
 	/**
 	 * Checks the HTTP request and convert it into an Array of Json Nodes. The
@@ -271,11 +269,10 @@ public class Application extends Controller {
 		}
 
 	}
-	
-	
+
 	public static Result crashReport() {
 		JsonNode report = request().body().asJson();
-		
+
 		if (report == null) {
 
 			return ok("Wrong Message! CrashReport  Json == null");
@@ -298,6 +295,17 @@ public class Application extends Controller {
 	public static Result delete(String id) {
 		Function.delete(id);
 		return redirect(routes.Application.index());
+	}
+
+	/**
+	 * Calls Delete CrashLogs Function
+	 * 
+	 * @param id
+	 * @return redirect to the main page
+	 */
+	public static Result deleteCrashLog(String id) {
+		Function.deleteCrashLog(id);
+		return redirect(routes.Application.displayCrash());
 	}
 
 	/**
@@ -339,11 +347,9 @@ public class Application extends Controller {
 	 * @return Opens main page with the List of Tourist that match the selected
 	 *         criteria
 	 */
+	@Security.Authenticated(Secured.class)
 	public static Result filter() {
-		List<User> userlist = Function.multiFilter(request());
-		for (int i = 0; i < userlist.size(); i++) {
-			search(userlist.get(i).userid);
-		}
+
 		return ok(views.html.user.render(Function.multiFilter(request())));
 
 	}
@@ -419,31 +425,44 @@ public class Application extends Controller {
 	}
 
 	public static Result search(String userid) {
-		System.out.print(request());
+		// System.out.print(request());
 		return ok(Json.toJson(Function.gpsfilter(userid, request())));
 
 	}
 
 	public static Result release() {
-		
-		double version = 1.0;
-		int release = 1;
+
+		double version = 1.4;
+		int release = 4;
 		ObjectNode jsonObject = Json.newObject();
-		
+
 		jsonObject.put("version", version);
 		jsonObject.put("release", release);
-		
+
 		return ok(jsonObject);
 	}
-	
-	
-	public static Result download(){
-		
+
+	public static Result download() {
+
 		return ok(views.html.download.render());
 	}
-	
-	public static Result downloadAPK(){
-		
-		return ok(new File("/Users/miosko/Desktop/AIT6/SW-P/App/testApp/AppRelease/app-debug.apk"));
+
+	public static Result downloadAPK() {
+
+		return ok(new File("/home/developer/AppRelease/app-debug.apk"));
 	}
+
+	@Security.Authenticated(Secured.class)
+	public static Result displayCrash() {
+
+		return ok(views.html.crashLogs.render(CrashReport.displayAll()));
+	}
+	
+	@Security.Authenticated(Secured.class)
+	public static Result displayUserInformations() {
+
+		return ok(views.html.userInfo.render(User.diplayUserInformations()));
+	}
+	
+
 }

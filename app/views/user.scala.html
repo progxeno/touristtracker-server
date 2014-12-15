@@ -121,7 +121,6 @@
             <div class="panel panel-default" style = "width:49%; float:left">
                <div class="panel-heading">Select Filter</div>
                <div style = "margin:0 auto">
-               
                   @form(routes.Application.filter()) {
                   <br/> 
                   <input type="text" name = "email">E-Mail<br> 
@@ -160,7 +159,6 @@
                      <input type="checkbox" name = "returner" value = "yes">Returner<br>
                   </div>
                   <br/>
-                  
                   <dt><label>Select Vehicle</label></dt>
                   <div style = "margin:0 auto">
                      <div  style = " float:left; width:25%">
@@ -176,10 +174,8 @@
                         <input type="checkbox" name = "vehicle" value = "2">Bus/Train<br>
                      </div>
                   </div>
-                  
                   <input type="submit" value="Filter" style = "float:left; width:40%" >
                   }
-                  
 </ul>
 </div>
 </div>
@@ -188,11 +184,6 @@
 <div class="modal hide" id="pleaseWaitDialog" data-backdrop="static" data-keyboard="false">
 <div class="modal-header">
 <h1>Processing...</h1>
-</div>
-<div class="modal-body">
-<div class="progress progress-striped active">
-<div class="bar" style="width: 100%;"></div>
-</div>
 </div>
 </div>
 </div>
@@ -219,7 +210,6 @@
          $(document).ready(function(){
          @for(user <- users) {
          
-         
          // add loading image to div
          $('#pleaseWaitDialog');
             // run ajax request
@@ -230,7 +220,7 @@
            success: function (filterRout) {
          
          
-         var json = JSON.parse(filterRout);
+         		  var json = JSON.parse(filterRout);
                   var userMap = [];
                   var RoutCounter = 0;
                   var timestamp = json[0].timestamp;
@@ -258,7 +248,7 @@
              // BLUE    
              strokeColor: '#008000',
              strokeOpacity: 1.0,
-             strokeWeight: 2
+             strokeWeight: 1
            });
          
            userMap[RoutCounter] = new google.maps.Polyline(footBike);
@@ -278,7 +268,7 @@
              // BLACK     
              strokeColor: '#FF0000',
              strokeOpacity: 1.0,
-             strokeWeight: 2
+             strokeWeight: 1
            });
          	
            userMap[RoutCounter] = new google.maps.Polyline(car);
@@ -299,7 +289,7 @@
              // GREEN
              strokeColor: '#FFFF00',
              strokeOpacity: 1.0,
-             strokeWeight: 2
+             strokeWeight: 1
            });
          
            userMap = new google.maps.Polyline(busTrain);
@@ -318,7 +308,7 @@
              // RED     
              strokeColor: '#FFA500',
              strokeOpacity: 1.0,
-             strokeWeight: 2
+             strokeWeight: 1
            });
            
            
@@ -338,23 +328,28 @@
            	  			j = 1;
            	  			
            	  		}else{
+           	  		  if(json[i+1].distance >= 0.5){
+           	  			RoutCounter++;
+           	  			console.log(json[i+1].distance);	
+           				console.log(json[i+1].userid);
+           	  			j = 1;
+           	  		}else {
            	  		j=0;
+           	  		}
            	  		}//end if date compare
+           	  		
+
            			}//end if json has next
-           					
          }//end for
          }//end FilterFunction
-           });//end Filter $.ajax
+         });//end Filter $.ajax
          };//end for(user <- users) 
          
          });//end $(document).ready(function()
-         
-         
-         
-         
-             
+ 
              
          };//end initialize();
+         
          
              initialize();
              //window.location = "/Distance/3289712368/singledistance";

@@ -1,10 +1,8 @@
 package models;
 
-
 import java.util.List;
 
 import play.libs.Json;
-
 
 public class GeoCenter {
 
@@ -22,16 +20,17 @@ public class GeoCenter {
 	public GeoCenter() {
 
 	}
-	
+
 	/**
-	 * Calculate the center of the collected GPS-data of one Tourist.
-	 * This Function is to display the movement pattern of the Tourists.
+	 * Calculate the center of the collected GPS-data of one Tourist. This
+	 * Function is to display the movement pattern of the Tourists.
+	 * 
 	 * @param gpslogs
 	 * @param userid
 	 * @return List witch one GPS-Date for each Tourist
 	 */
-	public static String getCenter(List<GPSLog> singelUserGPSLogs){
-		
+	public static String getCenter(List<GPSLog> singelUserGPSLogs) {
+
 		String json = Json.toJson(singelUserGPSLogs).toString();
 
 		return json;

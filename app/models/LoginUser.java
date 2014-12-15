@@ -46,7 +46,7 @@ public class LoginUser {
 				}
 			}
 
-		if (bNewUser){
+		if (bNewUser) {
 			user.password = String.valueOf(user.password.hashCode());
 			LoginUser.coll.save(user);
 		}
@@ -63,6 +63,5 @@ public class LoginUser {
 		else
 			return false;
 	}
-
 
 }

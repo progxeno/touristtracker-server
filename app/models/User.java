@@ -5,12 +5,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import net.vz.mongodb.jackson.DBCursor;
 import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.JacksonDBCollection;
 import net.vz.mongodb.jackson.ObjectId;
 import play.modules.mongodb.jackson.MongoDB;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mongodb.BasicDBObject;
 
 public class User {
 
@@ -27,9 +29,11 @@ public class User {
 	public boolean gender;
 	public boolean returner;
 	public String version;
+	public String appVersion;
 	public String manufacturer;
 	public String model;
 	public String screenSize;
+
 	@JsonIgnore
 	public String dateFrom;
 	@JsonIgnore
@@ -44,13 +48,15 @@ public class User {
 	public double dShipDist;
 	@JsonIgnore
 	public double dTotalDist;
+	@JsonIgnore
+	public boolean hide;
 
 	public static JacksonDBCollection<User, String> coll = MongoDB
 			.getCollection("Tourists", User.class, String.class);
 
 	public User(String userid, String email, int year, String zipcode,
 			String country, boolean gender, boolean returner, String version,
-			String manufacturer, String model, String screenSize) {
+			String manufacturer, String model, String screenSize, String appVersion) {
 
 		this.userid = userid;
 		this.email = email;
@@ -63,6 +69,8 @@ public class User {
 		this.manufacturer = manufacturer;
 		this.model = model;
 		this.screenSize = screenSize;
+		this.appVersion = appVersion;
+		this.hide = false;
 
 	}
 
@@ -91,7 +99,9 @@ public class User {
 			user.dateFrom = sdf.format(date);
 			User.coll.save(user);
 		} else {
-			user.dateFrom = dateFrom;
+			if (!dateFrom.contains("newUser")) {
+				user.dateFrom = dateFrom;
+			}
 			User.coll.save(user);
 		}
 	}
@@ -111,7 +121,18 @@ public class User {
 	}
 
 	public static List<User> displayAll() {
-		return User.coll.find().limit(1000).toArray();
+		return User.coll.find().toArray();
 	}
+	
+	
+	public static List<User> diplayUserInformations() {
+		
+		DBCursor<User> cursor = User.coll.find();
+		cursor.sort(new BasicDBObject("appVersion", 1));
+
+		
+		return cursor.toArray();
+	}
+
 
 }

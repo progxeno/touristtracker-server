@@ -35,8 +35,8 @@ public class GPSLog {
 		this.timestamp = timestamp;
 		this.latitude = latitude;
 		this.longitude = longitude;
-		this.distance = 
-				Math.round((distance)*Math.pow(10d,2))/Math.pow(10d,2);
+		this.distance = Math.round((distance) * Math.pow(10d, 2))
+				/ Math.pow(10d, 2);
 		this.progressed = false;
 	}
 
@@ -56,11 +56,12 @@ public class GPSLog {
 	public static List<GPSLog> all() {
 		return GPSLog.coll.find().toArray();
 	}
-	
+
 	/**
 	 * Updates the given GPS-Data and set the attribute "progressed" to true.
-	 * I´ve implemented this because the "update()" Function of the jacksondriver didn´t work
-	 * correct.
+	 * I´ve implemented this because the "update()" Function of the
+	 * jacksondriver didn´t work correct.
+	 * 
 	 * @param log
 	 */
 	public static void myGPSUpdate(GPSLog log) {

@@ -182,6 +182,20 @@ public class Function {
 
 	}
 
+	/**
+	 * Deletes a Single Rating by the Object id
+	 * 
+	 * @param id
+	 */
+	public static void deleteCrashLog(String id) {
+
+		CrashReport workedReport = CrashReport.coll.findOneById(id);
+		workedReport.hide = true;
+		CrashReport.coll.updateById(id, workedReport);
+		// CrashReport.coll.save(workedReport);
+
+	}
+
 	// /**
 	// * Reads the selected filter criteria and puts these criteria in the
 	// search
@@ -421,13 +435,13 @@ public class Function {
 
 		String email = "email";
 		String zipcode = "zipcode";
-		String year1 = "year1";
-		String year2 = "year2";
+		String year1 = "yearFrom";
+		String year2 = "yearTo";
 		String country = "country";
 		String gender = "gender";
 		String returner = "returner";
-		String date1 = "date1";
-		String date2 = "date2";
+		String date1 = "dateFrom";
+		String date2 = "dateTo";
 		List<User> userlist = new ArrayList<User>();
 
 		String foundmail = filterOptions.getQueryString(email);
@@ -473,6 +487,7 @@ public class Function {
 							.equalsIgnoreCase("yes")) {
 				searchQuery.put(returner, true);
 			}
+
 			if (!filterOptions.getQueryString("yearFrom").isEmpty()
 					&& !filterOptions.getQueryString("yearTo").isEmpty()) {
 
@@ -521,25 +536,44 @@ public class Function {
 						.greaterThan("dShipDist", 0.01).toArray();
 			}
 
-			for (int i = 0; i <= userlist.size(); i++) {
+			for (int i = 0; i < userlist.size(); i++) {
 				if (!filterOptions.getQueryString("dateFrom").isEmpty()) {
 					Timestamp tDate1 = Timestamp.valueOf(foundDate1
 							+ " 00:00:00.000000000");
 
-					Timestamp tUserDate = Timestamp
+					Timestamp tUserDateFrom = Timestamp
 							.valueOf(userlist.get(i).dateFrom
 									+ " 00:00:00.000000000");
 
-					if (!filterOptions.getQueryString("dateTo").isEmpty())
-						userlist.get(i).dateTo = foundDate2;
-
-					if (!tUserDate.after(tDate1)) {
+					if (!tUserDateFrom.after(tDate1)
+							&& !tUserDateFrom.equals(tDate1)) {
 						userlist.remove(i);
 						i--;
 					}
 
 				}
 
+			}
+			for (int i = 0; i < userlist.size(); i++) {
+				if (!filterOptions.getQueryString("dateTo").isEmpty()) {
+					// userlist.get(i).dateTo = foundDate2;
+					if (userlist.get(i).dateTo != null) {
+						Timestamp tDate2 = Timestamp.valueOf(foundDate2
+								+ " 00:00:00.000000000");
+
+						System.out.print("   " + userlist.get(i).dateTo
+								+ "      ");
+						System.out.print(userlist.get(i).dateFrom);
+						Timestamp tUserDateTo = Timestamp.valueOf(userlist
+								.get(i).dateTo + " 00:00:00.000000000");
+
+						if (tUserDateTo.after(tDate2)) {
+							userlist.remove(i);
+							i--;
+						}
+
+					}
+				}
 			}
 			return userlist;
 		} else {
@@ -567,15 +601,15 @@ public class Function {
 		String foundDate2 = filterOptions.getQueryString("dateTo");
 		List<GPSLog> filtertLogs = new ArrayList<GPSLog>();
 
-		//System.out.print(filterOptions.getQueryString("vehicle"));
+		// System.out.print(filterOptions.getQueryString("vehicle"));
 
 		if (filterOptions.getQueryString(foundDate1) == "dateFrom") {
-			//System.out.print("date");
+			// System.out.print("date");
 			// searchQuery.put("userid", userid);
 
 			if (filterOptions.queryString().containsKey("vehicle")) {
 
-				//System.out.print("vehicle");
+				// System.out.print("vehicle");
 				if (filterOptions.getQueryString("vehicle").equalsIgnoreCase(
 						"0")) {
 					searchQuery.put("vehicle", 0);
