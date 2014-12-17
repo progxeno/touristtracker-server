@@ -1,6 +1,5 @@
 package controllers;
 
-import java.io.File;
 
 import models.CrashReport;
 import models.Function;
@@ -433,7 +432,7 @@ public class Application extends Controller {
 	public static Result release() {
 
 		double version = 1.4;
-		int release = 4;
+		int release = 5;
 		ObjectNode jsonObject = Json.newObject();
 
 		jsonObject.put("version", version);
@@ -445,11 +444,6 @@ public class Application extends Controller {
 	public static Result download() {
 
 		return ok(views.html.download.render());
-	}
-
-	public static Result downloadAPK() {
-
-		return ok(new File("/home/developer/AppRelease/app-debug.apk"));
 	}
 
 	@Security.Authenticated(Secured.class)

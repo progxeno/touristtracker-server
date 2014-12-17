@@ -42,7 +42,7 @@ GET		/search/:userid/getRout			controllers.Application.search(userid: String)
 
 GET 	/release						controllers.Application.release()
 GET 	/download						controllers.Application.download()
-GET 	/download/apk2					controllers.Application.downloadAPK()
+#GET 	/download/apk					controllers.Application.downloadAPK()
 
 GET 	/display/crashlogs				controllers.Application.displayCrash()
 GET 	/display/userinfo				controllers.Application.displayUserInformations()
