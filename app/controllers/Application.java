@@ -432,7 +432,7 @@ public class Application extends Controller {
 	public static Result release() {
 
 		double version = 1.4;
-		int release = 5;
+		int release = 6;
 		ObjectNode jsonObject = Json.newObject();
 
 		jsonObject.put("version", version);
